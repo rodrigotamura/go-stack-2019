@@ -1,3 +1,5 @@
+You can find out more details [here](https://docs.google.com/document/d/1S0piT-jPD45Bk4CLShxhlcTQ6ntPPF9ViPtmfZ55Oqg/edit?usp=sharing).
+
 # NVM
 
 Allows us to install many versions of Node, and set a project to use the right version of Node.
