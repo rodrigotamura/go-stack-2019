@@ -63,10 +63,11 @@ class UserController {
     const { email, oldPassword } = req.body;
 
     // instantiating user by ID
+    // This ID was got in middlewares/auth.js
     const user = await User.findByPk(req.userId);
 
     // we need ckeck if email will not repeat with another user
-    if (email === user.email) {
+    if (email && email !== user.email) {
       const userExists = await User.findOne({
         where: { email },
       });

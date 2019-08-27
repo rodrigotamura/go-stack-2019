@@ -33,13 +33,20 @@ class User extends Model {
         // if the field 'password' is included in request...
         user.password_hash = await bcrypt.hash(user.password, 8); // 8 is the strength of encryption
       }
-
-      return this;
     });
+
+    return this; // ALWAYS we need to return this object in init() method.
+  }
+
+  static associate(models) {
+    // now we are including in User Model the file field
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
+
+    // this as:'avatar means that we don't want to reference avatar as a FILE (default),
+    // we are here renaming to 'avatar' (look at ProviderController in const providers)
   }
 
   checkPassword(password) {
-    console.log(password);
     // comparing the received password with password_hash
     return bcrypt.compare(password, this.password_hash);
   }

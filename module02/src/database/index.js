@@ -1,13 +1,17 @@
 import Sequelize from 'sequelize'; // Sequelize will be responsible to make the connection with DB
+import mongoose from 'mongoose';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
+import File from '../app/models/File';
+import Appointment from '../app/models/Appointment';
 
-const models = [User];
+const models = [User, File, Appointment];
 
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   // init() will make the connection and link with the Models
@@ -18,7 +22,19 @@ class Database {
 
     // now we need to import our models and assign in an array called models
 
-    models.map(model => model.init(this.connection));
+    models
+      .map(model => model.init(this.connection))
+      .map(model => model.associate && model.associate(this.connection.models));
+  }
+
+  // preparing connection with MongoDB
+  mongo() {
+    this.mongoConnection = mongoose.connect(
+      'mongodb://localhost:27017/gobarber',
+      { useNewUrlParser: true, useFindAndModify: true }
+    );
+
+    // DO NOT FORGET to execute it in this.init()
   }
 }
 

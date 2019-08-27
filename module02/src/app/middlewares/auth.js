@@ -21,7 +21,6 @@ import jwt from 'jsonwebtoken';
 // to use with async/await
 import { promisify } from 'util';
 
-import { userInfo } from 'os';
 import authConfig from '../../config/auth';
 
 export default async (req, res, next) => {

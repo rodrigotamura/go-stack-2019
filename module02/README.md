@@ -148,6 +148,45 @@ Now, let's test this implementation going to routes.js (of course, this implemen
 
 In a development environment, Sequelize will return all queries in Node console.
 
+### Making relationship between Models
+
+Firstly, if it is necessary to create a column with 1:1 relationship, we need create a migration with the follow configuration:
+
+```
+return queryInterface.addColumn('users', 'avatar_id', {
+  type: Sequelize.INTEGER,
+  references: { model: 'files', key: 'id' }, // Foreign Key reference
+  onUpdate: 'CASCADE', // when image is updated, this filed will be updated also
+  onDelete: 'SET NULL', // when image is deleted, this field will be NULL
+  allowNull: true,
+});
+```
+
+Within User's Model, we will create a new method:
+
+```
+static associate(models) {
+  this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+}
+```
+
+Now we need to call this method in /src/database/index.js ([more details](./src/database/index.js))
+
+# NoSQL
+
+Sequelize is an ORM for SQL databases. With NoSQL we will use **Mongoose**.
+
+Let's create ao docker container to make MongoDB server:
+`$ docker run --name mongobarbaer -p 27017:27017 -d -t mongo`
+
+In this app we are working also with PostGreSQL (Sequelize). It means that we will work with 2 databases.
+
+Let's open [/src/database/index.js](/src/database/index.js) for more details.
+
+With MongoDB we will sotore notifications in order to send to Provider for new appointments.
+
+We need to create our Schemas for our MongoDB. Schemas it's like tables for SQL DBs. We will create in [/src/app/schemas/Notification.js](/src/app/schemas/Notification.js). Open this file for further information.
+
 # MVC Architecture - Important approaches
 
 For detailed approaches, [click here](./Sequelize.pdf)
@@ -347,3 +386,75 @@ There are many ways to validate external data, but we will use **Yup**.
 YUP is a library of schema-validation.
 
 Let's import it within Controller we eant to validate external data. You can see in UserController.
+
+### Validating Date
+
+We will install a lib called **date-fns** with the actual version (@next):
+`$ yarn add date-fns@next`
+
+You can check datails in [AppointmentController](./src/app/controllers/AppointmentController.js)
+
+#### Locale on datetime with Date-FNS
+
+Please, check it out in [./src/app/controllers/AppointmentController.js](./src/app/controllers/AppointmentController.js) for further details.
+
+# File upload
+
+In our app, we will implement a feature that will allow the service providers to upload their avatar image. During registration, when the user selects the image, it will upload automatically and our API will send an ID of this image. And finally when the user finish his registration by submiting the form registration, it will send the ID of this image.
+
+We could not send the image together with the form content, because JSON does not support send in its body file format.
+
+We need to install a library that support a different body (_multipart/form-data_), different from JSON, in order to send files called **Multer**.
+`yarn add multer`
+In the root of our project we will create a folder called _/tmp/uploads_. Within this folder will store every sended file.
+
+We also will create **/src/config/multer.js** ([click here](./src/config/multer.js) for datails), that will store all settings for upload feature.
+
+Afterwards, we will go to our routes, and we will import our multer configs and instance the multer object with multer configurations. Finally we will create a new route that the user will send the files.
+
+Let's test it with Insomnia (or another alternative) and, instead use JSON in body type, we will use _Multipart_. You might see in /tmp/uploads your uploaded file.
+
+# Pagination
+
+By good practices, we use **querystring** to set the number of page (http://localhost:3333/appointments?__page=2__). See how to implement it at [here](./src/app/controllers/AppointmentController.js).
+
+# Sending e-mails
+
+We will install **NodeMailer** in order to send e-mail messages.
+
+`$ yarn add nodemailer`
+
+Then, we create [/src/config/mail.js](./src/config/mail.js). We can use many e-mail services, like Amazon SES, Mailgun, Sparkpost, Mandril (Mailchimp), so on.
+
+Is not recommended to use Gmail, because its limitation.
+
+Here we will use [**MailTrap**](https://mailtrap.io), that works only for developer environment.
+(Of course, in production mode we need to use some of we pointed above.)
+
+When we use Mailtrap to test some e-mail sending by our app, we can see this message in out Mailtrap MailBox, however the destination will not receive any message because this is only for test purpose.
+
+### Sending e-mail
+
+Let's create a folder called **lib**. Within this folder we configure the services (like e-mail sender) and prepare every methods to use it, and many times we set the config variables of each service by ./src/config/ folder.
+
+The role of controller in this case is just to send e-mail messages.
+
+So, we create [/src/lib/Mail.js](./src/lib/Mail.js) to implement the initial configuration of NodeMailer. See this file for further details.
+
+Afterwards we will implement in a controller. You can see in [/src/app/controllers/AppointmentController.js](./src/app/controllers/AppointmentController.js)
+
+### Configuring template HTML for e-mail message
+
+We need to use a TEMPLATE ENGINE (basically it is HTML file that receives variables). For that we need to install some libs:
+
+- Handlebars (handlebarsjs.com): `$ yarn add express-handlebars`;
+- Nodemailer Express Handlebars: `$ yarn add nodemailer-express-handlebars`
+  (the last one will integrate Handlebars along with Nodemailer)
+
+Now, let's open [/src/lib/Mail.js](./src/lib/Mail.js), importing the installed libs and configure them.
+
+We created the follows:
+
+- /src/app/views/emails/layouts/default.hbs -> Default template for our e-mail messages
+- /src/app/views/emails/partials/ -> Files that we can import within some e-mail messages that is repetitive (ex.: footer).
+- /src/app/views/emails/cancellation.js -> Will be the body of our message in ./layouts/default.hbs (`{{{ html }}}`)
