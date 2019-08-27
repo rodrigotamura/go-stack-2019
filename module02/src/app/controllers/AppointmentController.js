@@ -33,7 +33,7 @@ class AppointmentController {
         canceled_at: null,
       },
       order: ['date'], // order by date
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'past', 'cancelable'],
 
       // pagination
       limit: 20,
