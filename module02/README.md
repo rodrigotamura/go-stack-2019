@@ -458,3 +458,74 @@ We created the follows:
 - /src/app/views/emails/layouts/default.hbs -> Default template for our e-mail messages
 - /src/app/views/emails/partials/ -> Files that we can import within some e-mail messages that is repetitive (ex.: footer).
 - /src/app/views/emails/cancellation.js -> Will be the body of our message in ./layouts/default.hbs (`{{{ html }}}`)
+
+# Configuring queues with Redis
+
+We can see in GoBarber till now, when user cancels one appointment and the aPI sends a message to provider's e-mail it takes more than 1.5 seconds. Besides it, another requesting, like creating new appointment, takes less than 1 second.
+
+How could we improve the time of our request - let's take appointment cancellation example - to be less like another requesting?
+
+We have two manner to do it:
+
+1. We take off `await` from sendMail() method. The problem is when some error is given on sending e-mail, we will never know about it.
+
+2. The best way to control actions that spend more time and it is not necessary to finish in same time the client receive the response, but we want to have control over these actions (retryings, geting errors, set priorities) working with **QUEUES** or **BACKGROUND JOBS**.
+
+To implement QUEUES, we need a key-value database like **Redis**.
+
+Redis is a non-relational database (like MongoDB), the difference is thar Redis we can not have schemas, or structures of data, but only work with key-value pairs. That`s why Redis will be more performatic.
+
+We need a server for Redis database. Let's create a container:
+
+`$ docker run --name redisbarber -p 6379:6379 -d -t redis:alpine`
+
+Afterwards we need install a tool for queue called **BeeQueue** for NodeJS.
+
+BeeQueue is very performatic, however it does not have job priorization manager. For this purpose we can install another tool, like _Kue_ (less performatic).
+
+In our case we work only with retry and handle errors of our e-mail sendings.
+
+Installing BeeQueue:
+
+`$ yarn add bee-queue`
+
+### Configuring Redis
+
+Let's create [/src/config/redis.js](./src/config/redis.js) to set connection to Redis server.
+
+### Configuring BeeQueue
+
+Let's create [/src/lib/Queue.js](./src/lib.Queue.js).
+
+We can have many queues.
+Each kind of service/background job will have its own queue
+For example, send mail for appointment cancellation will have its own queue
+Send mail for password recovery will have its own queue.
+
+**Every works within queues are called JOBS**.
+
+So, we will crate folder `/src/app/jobs` in order to store every BACKGROUND JOBS.
+
+Finally we will create [/src/queue.js](./src/queue.js).
+
+We are creeating this file because basically we will not execute the application in same execution that we will execute the queues.
+Because we can run queues in another server, in a core of processor will more or less resources tottaly separated from our application. So the queue never influences the performance of our application.
+
+For example. In one terminal we are running our application with `$ yarn dev`. And we can open another terminal we can run `$ node src/queue.js`.
+
+Note that we need implement Sucrase in src/queue.js:
+
+In [package.json](./package.json), we will include a new _script_:
+
+```
+"scripts": {
+  "dev": "nodemon ./src/server.js",
+  "queue": "nodemon ./src/queue.js"
+}
+```
+
+### Monitoring fails in queue
+
+We will implement in [/src/lib/Queue.js](./src/lib/Queue.js), in `processQueue()` method, adding `bee.on('failed).process(handle);`.
+
+BeeQueue has many kinds of events. Here we are using _failed_, when something gonna worng.
