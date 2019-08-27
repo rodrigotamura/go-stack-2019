@@ -529,3 +529,51 @@ In [package.json](./package.json), we will include a new _script_:
 We will implement in [/src/lib/Queue.js](./src/lib/Queue.js), in `processQueue()` method, adding `bee.on('failed).process(handle);`.
 
 BeeQueue has many kinds of events. Here we are using _failed_, when something gonna worng.
+
+# Error handling
+
+In order to manage all errors from our application, we will install Sentry (another alternative is Bugsnag).
+
+You need to access [https://sentry.io](https://sentry.io) and create a new account and afterwards we will create a new project. Select Express for this new project, and finally Sentry will give the instructions to implement in our project.
+
+Let's implement in ou [/src/app.js](./src/app.js). We also create Sentry's configuration in [/src/config/sentry.js](./src/config/sentry.js).
+
+By default, whe we use async with Express, it will can not get and it will not send to Sentry. However we can install a lib that will fix it:
+
+`$ yarn add express-async-errors`
+
+And import it in [/src/app.js](./src/app.js) **BEFORE import routes**.
+
+If we trye to make an error and execute the script, we can now find it out in Sentry to see the error details.
+
+OK, Sentry is getting the errors, but in Insomnia the user keep waiting for some response. And we need to implement it. In [/src/app.js](./src/app.js), we will implement `exeptionHandler()`.
+
+When we create a Middleware of error handling we need to receive as the first param the error
+Express will detect that, if some middleware is build with 4 parameters, it will be considered a middleware of error handling.
+
+Let's install another lib called **Youch**: `$ yarn add youch`
+
+**Youch** will treat the errors to be more beautiful for developer.
+
+You'll see now the errors detailed.
+
+# Configuring environmet variables
+
+We will learn how to manage environment variables, that will change according to which environment our application is running.
+
+For example, the variables of DB connection.
+
+First of all, we will create [.env](./.env).
+
+**Important**: For secure reasons, we need add `.env` file in `.gitignore`.
+
+After, we need load these variables with **dotEnv**: `$ yarn add dotenv`
+
+We will go to [/src/app.js](./src/app.js) and import it.
+(do not forget to import it in [/src/queue.js](./src/queue.js))
+
+Now we can access these variable calling by `_process.env.VARIABLE_IN_DOTENV_`.
+
+We need to import it in [/src/config/database.js](./src/config/database.js).
+
+A good practice is to create [.env.example](./.env.example) taking off every secret configuration in order to the next developer that clone our application will set each variable.
