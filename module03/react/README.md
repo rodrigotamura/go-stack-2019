@@ -60,3 +60,12 @@ In order to import CSS in our component, we need install 2 loaders:
 `$ yarn add style-loader css-loader -D`
 
 Let's add some module/rules in [webpack.config.js](./webpack.config.js) (open this file for further importants explanations) for CSS processing.
+
+# Importing images
+
+In order to import images in our component, we need install follow loader:
+`$ yarn add file-loader -D`
+
+Let's add some module/rules in [webpack.config.js](./webpack.config.js) (open this file for further importants explanations) for files processing.
+
+Let's create `/src/assets/` folder and store one image, and import this image in [/src/App.js](./src/App.js) (the name is _profile_).

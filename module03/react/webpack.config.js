@@ -37,6 +37,16 @@ module.exports = {
           // and 'css-loader' will resolve these inner importations
           { loader: "css-loader" }
         ]
+      },
+
+      // loading images
+      {
+        test: /\.(gif|jpe?g|svg|png)$/i,
+        // ? symbol in 'jpe?g' means that is acceptable 'jpg' or 'jpeg'
+        // i means case insensitive
+        use: {
+          loader: "file-loader"
+        }
       }
     ]
   }
