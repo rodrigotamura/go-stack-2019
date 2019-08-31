@@ -2,12 +2,10 @@ import React from "react"; // this is important because we will use JSX syntax
 
 // importing CSS
 import "./App.css";
-
-// importing img
-import profile from "./assets/2.png";
+import TechList from "./components/TechList";
 
 function App() {
-  return <img src={profile}></img>;
+  return <TechList />;
 }
 
 export default App;

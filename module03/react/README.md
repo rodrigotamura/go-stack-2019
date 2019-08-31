@@ -69,3 +69,28 @@ In order to import images in our component, we need install follow loader:
 Let's add some module/rules in [webpack.config.js](./webpack.config.js) (open this file for further importants explanations) for files processing.
 
 Let's create `/src/assets/` folder and store one image, and import this image in [/src/App.js](./src/App.js) (the name is _profile_).
+
+# Class components
+
+Firstly let's separate our root component (App.js) from the rest of another components creating the folder `/src/components/`.
+
+Inside this folder, let's create [/src/components/TechList.js](./src/components/TechList.js), this is our new component.
+
+In _TechList_ component, we will talk about the ways to create a component: Function Component and Class Component. the most used is **Class Component**.
+(with Class Component we can use **state variables**, that are not same of traditional variables).
+
+```javascript
+class TechList extends Component {
+  // we can create special variables called state
+  state = {
+    techs: ["Node.js", "ReactJS", "React Native"]
+  };
+  [... `rest of code`]
+}
+```
+
+If we run our server we will get an error, because Babel cannot understand this manner to declare variables in a class (if we declare in a constructor method it would work).
+
+To fix it we need to install `$ yarn add @babel/plugin-proposal-class-properties -D`, and we need to add it as a plugin into [/babel.config.js](./babel.config.js).
+
+Ok, let's attach our new component into root component [App.js](./src/App.js).
