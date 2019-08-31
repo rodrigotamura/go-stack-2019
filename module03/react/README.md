@@ -53,3 +53,10 @@ Please check out at [/src/index.js](./src/index.js) for details and instructions
 
 1. Create [/src/App.js](./src/App.js) and create root component there.
 2. Import this file into [/src/index.js](./src/index.js)
+
+# Importing CSS
+
+In order to import CSS in our component, we need install 2 loaders:
+`$ yarn add style-loader css-loader -D`
+
+Let's add some module/rules in [webpack.config.js](./webpack.config.js) (open this file for further importants explanations) for CSS processing.

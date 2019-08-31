@@ -24,6 +24,19 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      // loader for CSS
+      {
+        test: /\.css$/,
+        use: [
+          // imports CSS files (imported in our JS files) and will throw in a <style> tag in the header of /public/index.html
+          { loader: "style-loader" },
+
+          // CSS can have another imports, like images (background: url('image.png'))
+          // or @import './another-css-files',
+          // and 'css-loader' will resolve these inner importations
+          { loader: "css-loader" }
+        ]
       }
     ]
   }
