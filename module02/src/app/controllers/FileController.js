@@ -1,4 +1,5 @@
 import File from '../models/File';
+import User from '../models/User';
 
 class FileController {
   async store(req, res) {
@@ -23,7 +24,10 @@ class FileController {
       path,
     });
 
-    return res.json(req.file);
+    // updating user
+    await User.update({ avatar_id: file.id }, { where: { id: req.userId } });
+
+    return res.json(file);
   }
 }
 
