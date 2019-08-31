@@ -42,3 +42,14 @@ First install `$ yarn add webpack-dev-server -D` and open [webpack.config.js](./
 Afterwards, open [package.json](./package.json) and add _dev_ in scripts: `webpack-dev-server --mode development`
 
 When we declare **--mode development** we will build our bundle without minifying. Wether we change to **--mode production** our bundle will be builded minifyied.
+
+# Creating root component with React
+
+We need to create [/public/index.html](./public/index.html).
+
+Please check out at [/src/index.js](./src/index.js) for details and instructions.
+
+**It is a good practice** to separate our root component from another components:
+
+1. Create [/src/App.js](./src/App.js) and create root component there.
+2. Import this file into [/src/index.js](./src/index.js)
