@@ -247,3 +247,7 @@ We have methods in our component class that will indicate each cycle:
   When some property is changed we can access it with `this.props`. We can compare with `prevProps`.
   Or `this.state` with states. We can compare with `prevState`.
 - `componentWillUnmount()` when component lefts
+
+# React DevTool
+
+We can add React Developer Tools that is a Google Chrome Extension to help us to monitor our components.
