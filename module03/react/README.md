@@ -135,4 +135,33 @@ we cannot have access of another properties or functions out of its scope (like 
 
 If we simply declare this.state.newTech = e,target.value It will not work, because React has a concept called IMMUTABILITY inside our state. This state is immutable, can not be mutted.
 
-If we need to create or change a state, the Component class offers a functions that is called **setState()**.
+If we need to create or change a state (or add an item into an array), the Component class offers a functions that is called **setState()**.
+
+### Removing value from state's array
+
+Look at the code bellow:
+
+```javascript
+<ul>
+  {this.state.techs.map(tech => (
+    <li key={tech}>
+      {tech}
+      <button onClick={() => handleDelete(tech)} type="button">
+        Remover
+      </button>
+    </li>
+  ))}
+</ul>
+```
+
+As you can see, we are creating a button, that will call `handleDelete()` in order to delete the indicated item.
+
+It's very strange to declare an arrow function, but this is very necessary because if we declare:
+
+```javasript
+<button onClick={handleDelete(tech)} type="button">
+```
+
+and execute in browser, `handleDelete(tech)` will be executed automatically. So, that's why we are using with arrow function.
+
+Another thing is that we cannot remove an item from state's array using `Array.splice()` method, remembering that in React we are dealing with immutability. Plase, check `handleDelete()` method and see how we remove an item from array in a state.
