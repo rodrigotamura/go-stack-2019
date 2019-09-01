@@ -165,3 +165,11 @@ It's very strange to declare an arrow function, but this is very necessary becau
 and execute in browser, `handleDelete(tech)` will be executed automatically. So, that's why we are using with arrow function.
 
 Another thing is that we cannot remove an item from state's array using `Array.splice()` method, remembering that in React we are dealing with immutability. Plase, check `handleDelete()` method and see how we remove an item from array in a state.
+
+# Properties in React
+
+This concept will approach about how to send something (could be a states variable or function) into a child component.
+
+Let's continue working with `TechList.js`, and there we are listing `state.techs` array. We are creating now a new component called **[TechItem](./src/components/TechItem.js)**. Note yourself that this list has `tech` variable.
+
+Our goal is to pass `state.techs` from `TechList` component into `TechItem` component. So, we will work with the concept of **properties**.

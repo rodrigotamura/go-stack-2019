@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TechItem from "./TechItem";
 
 /**
  * First manner of creating a new component:
@@ -67,12 +68,11 @@ class TechList extends Component {
       <form onSubmit={this.handleSubmit}>
         <ul>
           {this.state.techs.map(tech => (
-            <li key={tech}>
-              {tech}
-              <button onClick={() => handleDelete(tech)} type="button">
-                Remover
-              </button>
-            </li>
+            <TechItem
+              key={tech} // generating a unique item, because we are working with lists
+              tech={tech} // working with properties, passing tech into this child component
+              onDelete={() => this.handleDelete(tech)} // passing a property of our component that is a function
+            />
           ))}
         </ul>
         <input
