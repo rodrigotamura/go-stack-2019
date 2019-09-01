@@ -94,3 +94,45 @@ If we run our server we will get an error, because Babel cannot understand this 
 To fix it we need to install `$ yarn add @babel/plugin-proposal-class-properties -D`, and we need to add it as a plugin into [/babel.config.js](./babel.config.js).
 
 Ok, let's attach our new component into root component [App.js](./src/App.js).
+
+# State and Immutability
+
+Still working in [/src/components/TechList.js](./src/components/TechList.js), you will realize that we are using our state variable called _techs_ to iterate in render() method.
+
+We can execute pure JS scripts inside the reutning of render() within curling braces `{ JS scripts here }`, such as variables and so on.
+
+Returning to talk about our techs iteration, each item will require a **key** param, that receive a unique value for each iteration. It will help React to index the listing and apply changes fastly, like using INDEX in a table`s DB.
+
+**When we return more than one element in our render method** it's obliged to have a container. Generally a `<div>` will make this role.
+
+```html
+<div>
+  <p>First element</p>
+  <h1>Second element</h1>
+</div>
+```
+
+However, we can replace this `<div>` that is working as a container with a **fragment tag** - empty tags - that will not be rendered:
+
+```html
+<>
+  <p>First element</p>
+  <h1>Second element</h1>
+</>
+```
+
+### New method in a component
+
+If we need to create a new method inside the component, it's necessary to create using **arrow function** approach. because, if we use the traditional function:
+
+```javascript
+function method() {}
+```
+
+we cannot have access of another properties or functions out of its scope (like `this.state.newTech` for example).
+
+### Changing a value of a state's variable:
+
+If we simply declare this.state.newTech = e,target.value It will not work, because React has a concept called IMMUTABILITY inside our state. This state is immutable, can not be mutted.
+
+If we need to create or change a state, the Component class offers a functions that is called **setState()**.
