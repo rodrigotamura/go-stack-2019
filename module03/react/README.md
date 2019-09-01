@@ -173,3 +173,77 @@ This concept will approach about how to send something (could be a states variab
 Let's continue working with `TechList.js`, and there we are listing `state.techs` array. We are creating now a new component called **[TechItem](./src/components/TechItem.js)**. Note yourself that this list has `tech` variable.
 
 Our goal is to pass `state.techs` from `TechList` component into `TechItem` component. So, we will work with the concept of **properties**.
+
+# Default props e PropTypes
+
+In our **[TechItem](./src/components/TechItem.js)**, if parent component does not set any property into TechItem component?
+
+We have some manners to not break down our application.
+
+Firstly, setting default property:
+
+```javascript
+function TechItem({ tech = 'Default technology' })
+```
+
+And another and most used is to use **Default Props**:
+
+```javascript
+function TechItem({ tech, onDelete }) {
+  return (
+    <li>
+      {tech}
+      <button onClick={onDelete} type="button">
+        Remover
+      </button>
+    </li>
+  );
+}
+
+// declaring deafultProps
+TechItem.deafultProps = {
+  tech: "Another tech"
+};
+
+export default TechItem;
+```
+
+In a class component we can declare the same previous way, or we can declare (most used) inside the class:
+
+```javascript
+class TechItem extends Component {
+  static defaultProps = {
+    tech: "Another tech"
+  };
+}
+```
+
+And, what about **ProTypes**? As you can see in our `TechItem` component, we are receiving onDelete as a function. But if someone set a string instead a function? It is interesting to notify that the right type is a function.
+
+For this implementation, we will install `$ yarn add prop-types`. Now let's import and configure it in **[TechItem](./src/components/TechItem.js)** (open it for further information).
+
+So, **PropTypes** will validate each property in order to set the correct type.
+
+Within a classe component, we can implement with static property:
+
+```javascript
+class TechItem extends Component {
+  static propTypes = {
+    ...
+  }
+
+  static defaultProps = {
+    tech: "Another tech"
+  };
+}
+```
+
+# Lifecycle of components
+
+We have methods in our component class that will indicate each cycle:
+
+- `componentDidMount()` when a componente displays on screen;
+- `componentDidUpdate(prevProps, prevState)` when there is change in props or state.
+  When some property is changed we can access it with `this.props`. We can compare with `prevProps`.
+  Or `this.state` with states. We can compare with `prevState`.
+- `componentWillUnmount()` when component lefts

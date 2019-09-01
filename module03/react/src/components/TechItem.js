@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 /**
  * This component we are creating as a function because
@@ -29,5 +30,15 @@ function TechItem({ tech, onDelete }) {
     </li>
   );
 }
+
+// declaring default props
+TechItem.deafultProps = {
+  tech: "Another tech"
+};
+
+TechItem.propTypes = {
+  tech: PropTypes.string.isRequired, // this property is a string and required
+  onDelete: PropTypes.func.isRequired // this property is a function and required
+};
 
 export default TechItem;

@@ -19,8 +19,28 @@ class TechList extends Component {
   // we can create special variables called state
   state = {
     newTech: "",
-    techs: ["Node.js", "ReactJS", "React Native"]
+    techs: []
   };
+
+  /**
+   * We will use local storage
+   * Everytime that we change somethign of our state
+   * this cycle mthod will be executed
+   */
+  componentDidUpdate(_, prevState) {
+    // confirming if tech is changed
+    if (prevState.techs !== this.state.tech) {
+      localStorage.setItem("techs", JSON.stringify(this.state.techs));
+    }
+  }
+
+  componentDidMount() {
+    const techs = localStorage.getItem("techs");
+
+    if (techs) {
+      this.setState({ techs: JSON.parse(techs) });
+    }
+  }
 
   /**
    * This method will store the typed tech into state.newTech
@@ -60,7 +80,7 @@ class TechList extends Component {
   };
 
   handleDelete = tech => {
-    this.setState({ techs: this.state.tech.filter(t => t === tech) });
+    this.setState({ techs: this.state.techs.filter(t => t === tech) });
   };
 
   render() {
