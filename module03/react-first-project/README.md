@@ -141,11 +141,11 @@ In order to make StyledComponents works, we need install a VSCode plugin called 
 
 Please, crete [/src/pages/Main/styles.js](./src/pages/Main/styles.js). Open it for further informations.
 
-Now we will apply some styles in our [Main component](./src/Main/index.js).
+Now we will apply some styles in our [Main component](./src/pages/Main/index.js).
 
 Important to note that the first concept to use Styled Component is that each tag will be a styled component.
 
-We can use also chained styles - same in CSS processosr like SASS (see in [Style Component](./src/pages/Main/styles.js) and [Main component](./src/Main/index.js)).
+We can use also chained styles - same in CSS processosr like SASS (see in [Style Component](./src/pages/Main/styles.js) and [Main component](./src/pages/Main/index.js)).
 
 Another feature is that **we can set a property and depending of the value it will apply another stylization in our component**.
 
@@ -155,4 +155,92 @@ Let's prepare our project to have one global stylization.
 
 We need to create [/src/styles/global.js](./src/styles/global.js), please open this file for more information.
 
-Now let's import it into our [App component](./src/App.js)
+Now let's import it into our [App component](./src/App.js).
+
+# Stylize Main page
+
+### How to put an icon?
+
+We can put images like PNG, GIF, SVG, and so on.
+
+However we will install `$ yarn add react-icons` that will offer the famous packages of icons (FontAwesome, Material Icons...).
+
+Import this lib into the desired component (we are working at [Main component](./src/pages/Main/index.js) and you can check out there).
+
+### When do we decide wether we use a Styled Component or Styled HTML?
+
+When a component has more than 2 levels of chaining we can create a new Styled Component.
+
+For example, if we want to create a form as common HTML inside a styled component:
+
+```javascript
+export default function Main() {
+  return (
+    <Container>
+      <p>
+        <small>
+          <strong></strong>
+        </small>
+      </p>
+    </Container>
+  );
+}
+```
+
+In this code above we have Container (1st level), `<p>` (2nd level), `<small>` (3rd level) and `<strong>` (4th level), and we want to apply style in `<strong>`, it will be very verbosed:
+
+```javascript
+export const Container = styled.h1`
+  p {
+    small {
+      strong {
+        // styles here
+      }
+    }
+  }
+`;
+```
+
+So, in this case, it is a good practice to create a Styled Component for `<small>` tag that is at 3rd level:
+
+```javascript
+export default function Main() {
+  return (
+    <Container>
+      <p>
+        <SmallText>
+          <strong></strong>
+        </SmallText>
+      </p>
+    </Container>
+  );
+}
+```
+
+And would be less verbose at its style.js:
+
+```javascript
+export const SmallText = styled.small`
+  strong {
+    // styles
+  }
+`;
+```
+
+Another tip is when we work with `<button>`, generally we need to set the type as _submit_ in order to use it as a submit button. If our `<button>` is a Styled Component, how could we set this button as a submit type?
+
+```javascript
+<SubmitButton type="submit">Send</SubmitButton>
+```
+
+and in SubmitButton component:
+
+```javascript
+export const SubmitButton = styled.button.attrs({
+  type: "submit"
+})`
+  background: #000;
+  border: 0;
+  padding: 0 15px;
+`;
+```
