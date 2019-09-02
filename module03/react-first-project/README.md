@@ -244,3 +244,13 @@ export const SubmitButton = styled.button.attrs({
   padding: 0 15px;
 `;
 ```
+
+# Adding repositories
+
+You can check out at [Main Component](./src/pages/Main.index.js).
+
+There are many way to use APIs. We can use the native `fetch()`, but with it we cannot define, for example, our `base_url`, and another limitations.
+
+We will use **Axios**: `$ yarn add axios`
+
+Let's create [/src/services/api.js](./src/services/api.js) and configure it (go there to see the implementations).

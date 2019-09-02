@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 
 export const Container = styled.div`
   max-width: 700px;
@@ -35,9 +35,21 @@ export const Form = styled.form`
   }
 `;
 
-export const SubmitButton = styled.button.attrs({
-  type: "submit"
-})`
+// rotating animation
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const SubmitButton = styled.button.attrs(props => ({
+  /* Here we can set the traditional HTML tag`s properties */
+  type: 'submit',
+  disabled: props.loading,
+}))`
   background: #000;
   border: 0;
   padding: 0 15px;
@@ -48,4 +60,19 @@ export const SubmitButton = styled.button.attrs({
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* & means the element itself, we can use like &:hover */
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* applying rotation when is requesting */
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
