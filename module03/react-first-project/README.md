@@ -109,3 +109,20 @@ To fix it we will create another file in our root called **.prettierrc** to adop
 }
 
 ```
+
+# Routing in React
+
+Let's configure routes in our application. I shall not explain here about SPA, but basically it is a page that we can navigate without refreshing page.
+
+Firstly let's install `$ yarn add react-router-dom`
+
+Afterwards we will create [/src/pages/](./src/pages) that we will store every page of our application. Inside this folder we will create:
+
+- [/src/pages/Main/index.js](/src/pages/Main/index.js)
+- [/src/pages/Repository/index.js](/src/pages/Repository/index.js)
+
+Let's put a very basic React sript inside each one.
+
+Now, we will create, open and edit the file [/src/routes.js](./src/routes.js) (open this file for further information).
+
+Import routes.js into [/src/App.js](./src/App.js).
