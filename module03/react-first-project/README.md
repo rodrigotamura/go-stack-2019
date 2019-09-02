@@ -126,3 +126,25 @@ Let's put a very basic React sript inside each one.
 Now, we will create, open and edit the file [/src/routes.js](./src/routes.js) (open this file for further information).
 
 Import routes.js into [/src/App.js](./src/App.js).
+
+# Styled components
+
+Let's install: `$ yarn add styled-components`. This lib will change the manner we code CSS in React and React-Native.
+
+Traditionally we need to import a CSS file in order to style the HTML tags within Main component, right?! However when a React app starts to grow it can be a problem.
+
+The problem is that each imported CSS will not be scoped, applying only for its imported component. (it's not like Angular, for example, where each component is able to scope its own stylization).
+
+**One of the greatest resources** from StyledComponents is that we can scope CSS stylization for each component.
+
+In order to make StyledComponents works, we need install a VSCode plugin called **vscode-styled-components (by Julien Poissonnier)**, the combination of this plugin and _styled-components_ lib will make our JS files understand CSS scripts.
+
+Please, crete [/src/pages/Main/styles.js](./src/pages/Main/styles.js). Open it for further informations.
+
+Now we will apply some styles in our [Main component](./src/Main/index.js).
+
+Important to note that the first concept to use Styled Component is that each tag will be a styled component.
+
+We can use also chained styles - same in CSS processosr like SASS (see in [Style Component](./src/pages/Main/styles.js) and [Main component](./src/Main/index.js)).
+
+Another feature is that **we can set a property and depending of the value it will apply another stylization in our component**.
