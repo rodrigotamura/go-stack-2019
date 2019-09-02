@@ -148,3 +148,11 @@ Important to note that the first concept to use Styled Component is that each ta
 We can use also chained styles - same in CSS processosr like SASS (see in [Style Component](./src/pages/Main/styles.js) and [Main component](./src/Main/index.js)).
 
 Another feature is that **we can set a property and depending of the value it will apply another stylization in our component**.
+
+# Global stylization
+
+Let's prepare our project to have one global stylization.
+
+We need to create [/src/styles/global.js](./src/styles/global.js), please open this file for more information.
+
+Now let's import it into our [App component](./src/App.js)
