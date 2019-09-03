@@ -5,13 +5,13 @@ import { FaGitAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 // And inside {} we put the name of desired icon
 import api from '../../services/api';
 
-import { Container, Form, SubmitButton } from './styles';
+import { Container, Form, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
   state = {
     newRepo: '',
     repositories: [],
-    loading: false,
+    loading: 0,
   };
 
   handleInputChange = e => {
@@ -22,7 +22,7 @@ export default class Main extends Component {
     e.preventDefault();
 
     // showing loading
-    this.setState({ loading: true });
+    this.setState({ loading: 1 });
 
     const { newRepo, repositories } = this.state;
 
@@ -36,12 +36,12 @@ export default class Main extends Component {
     this.setState({
       repositories: [...repositories, data],
       newRepo: '',
-      loading: false,
+      loading: 0,
     });
   };
 
   render() {
-    const { newRepo, loading } = this.state;
+    const { newRepo, loading, repositories } = this.state;
 
     return (
       <Container>
@@ -59,7 +59,7 @@ export default class Main extends Component {
           />
           {/* We are creating a new styled component for SubmitButton because we will apply some self behaviors */}
           {/* Whe a user press this button in order to find a repository, this button will be disabled while requesting */}
-          <SubmitButton loading={loading ? 1 : 0}>
+          <SubmitButton loading={loading}>
             {/* Let's put one spinner rounding while is requesting */}
             {loading ? (
               <FaSpinner color="#FFF" size={14} />
@@ -68,6 +68,15 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
+
+        <List>
+          {repositories.map(repository => (
+            <li key={repository.name}>
+              <span>{repository.name}</span>
+              <a href="">Details</a>
+            </li>
+          ))}
+        </List>
       </Container>
     );
   }
