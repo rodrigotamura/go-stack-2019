@@ -255,6 +255,26 @@ We will use **Axios**: `$ yarn add axios`
 
 Let's create [/src/services/api.js](./src/services/api.js) and configure it (go there to see the implementations).
 
+### Some tips for several requests in sequence
+
+Suppose if I have two requests to make in a remote API:
+
+```javascript
+const repository = await api.get(`/repos/${repoName}`);
+const issues = await api.get(`/repos/${repoName / issues}`);
+```
+
+It will work normally, however the second requesting will run only after the first request finishes.
+
+We can implement a trick that we manka a unique request for both.
+
+```javascript
+const [repository, issues] = await Promise.all([
+  api.get(`/repos/${repoName}`),
+  api.get(`/repos/${repoName / issues}`);
+])
+```
+
 # Navigating in routes
 
 We will apply routes navigation at [Main Component](./src/pages/Main/index.js) (check it up for more details).
