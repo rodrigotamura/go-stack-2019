@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import api from '../../services/api';
 
 export default class Repository extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        repository: PropTypes.string,
+      })
+    }).isRequired, //everything is required
+  }
+
   state = {
     repository: {},
     issues: [],
@@ -33,7 +42,7 @@ export default class Repository extends Component {
   }
 
   render() {
-    // we implemented it because ESLint is warning
+    // we implemented it because ESLint is warning on state declaration
     const { repository, issues, loading } = this.state;
 
     return <h1>Repository</h1>;
