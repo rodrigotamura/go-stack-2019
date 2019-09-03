@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 /**
  * react-router-dom eports a various kinds of routers and
@@ -14,8 +14,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 /**
  * We need to import every component that we want to navigate
  */
-import Main from "./pages/Main";
-import Repository from "./pages/Repository";
+import Main from './pages/Main';
+import Repository from './pages/Repository';
 
 export default function Routes() {
   return (
@@ -27,7 +27,7 @@ export default function Routes() {
           // will route to Main
           // because o /. Exact will catch exact route.
         }
-        <Route path="/repository" component={Repository} />
+        <Route path="/repository/:repository" component={Repository} />
       </Switch>
     </BrowserRouter>
   );

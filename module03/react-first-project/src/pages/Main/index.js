@@ -3,7 +3,10 @@ import { FaGitAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 // In this case we are importing FontAwesome (react-icons/fa)
 // react-icons/<icon-package-desired>
 // And inside {} we put the name of desired icon
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
+
+// for routes navigation
 
 import { Container, Form, SubmitButton, List } from './styles';
 
@@ -91,7 +94,13 @@ export default class Main extends Component {
           {repositories.map(repository => (
             <li key={repository.name}>
               <span>{repository.name}</span>
-              <a href="">Details</a>
+              <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
+                {/*
+                using encodeURIComponent() we will convert / into encodedURL
+                in order to prevent wrong routing
+                */}
+                Details
+              </Link>
             </li>
           ))}
         </List>

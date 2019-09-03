@@ -237,7 +237,7 @@ and in SubmitButton component:
 
 ```javascript
 export const SubmitButton = styled.button.attrs({
-  type: "submit"
+  type: 'submit',
 })`
   background: #000;
   border: 0;
@@ -254,3 +254,33 @@ There are many way to use APIs. We can use the native `fetch()`, but with it we 
 We will use **Axios**: `$ yarn add axios`
 
 Let's create [/src/services/api.js](./src/services/api.js) and configure it (go there to see the implementations).
+
+# Navigating in routes
+
+We will apply routes navigation at [Main Component](./src/pages/Main/index.js) (check it up for more details).
+
+Note that we cannot simply use `<a href="./repository/3">Repository Sample</a>` because if user click on it the current page will load and we are dealing with SPA.
+
+We can navigate using `<Link>` component and also we can use pure JS by `this.prop.navigate`. However we will adopt to use **Link Component**.
+
+```javascript
+<Link to={`/repository${repoName}`}>Click here</Link>
+```
+
+And, at [route file](./src/routes.js), we will include one param:
+
+```javascript
+<Route path="/repository/:repository" component={Repository} />
+```
+
+`:repository` is our dynamic param, or the name of repository.
+
+Now, at [Repository Component](./src/pages/Repository/index.js) we can use the follow to get the URL value (`:repository`):
+
+```javascript
+export default function Repository({ match }) {
+  return <h1>Repository: {decodeURIComponent(match.params.repository)}</h1>;
+}
+```
+
+Note you that `match` is a destructured object that get params from URL by `match.params.<param>`.
