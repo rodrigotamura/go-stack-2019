@@ -4,11 +4,12 @@ import { FaGitAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 // react-icons/<icon-package-desired>
 // And inside {} we put the name of desired icon
 import { Link } from 'react-router-dom';
+import Container from '../../components/Container';
 import api from '../../services/api';
 
 // for routes navigation
 
-import { Container, Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
   state = {

@@ -304,3 +304,11 @@ export default function Repository({ match }) {
 ```
 
 Note you that `match` is a destructured object that get params from URL by `match.params.<param>`.
+
+# Sharing components
+
+The **Container** component we are using in [Main Component](./src/pages/Main/index.js) we will use in [Repository Component](./src/pages/Repository/index.js) as well.
+
+So, Container Component will be a shared component.
+
+For shared components, we will create [/src/components/Container/index.js](./src/components/Container/index.js), and import it in every pages that is useful.
