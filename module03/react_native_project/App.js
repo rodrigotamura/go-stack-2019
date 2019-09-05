@@ -6,16 +6,9 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to React Native App!</Text>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -31,5 +24,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>Welcome to React Native App!</Text>
+    </View>
+  );
+};
 
 export default App;
