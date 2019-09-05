@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import api from '../../services/api';
 import Container from '../../components/Container';
 
-import { Loading, Owner } from './styles';
+import { Loading, Owner, IssueList, SelectIssueFilter } from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -19,6 +19,7 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: 1,
+    issueFilter: 'all',
   };
 
   async componentDidMount() {
@@ -32,7 +33,7 @@ export default class Repository extends Component {
       api.get(`/repos/${repoName}/issues`, {
         params: {
           // adding a querystring
-          state: 'open', // only opened issues
+          state: this.state.issueFilter, // only opened issues
           per_page: 5, // retrieve 5 issues
         },
       }),
@@ -44,6 +45,23 @@ export default class Repository extends Component {
       loading: 0,
     });
   }
+
+  handleIssueFilter = async e => {
+    // loading
+    this.setState({ loading: 1 });
+
+    const { repository } = this.state;
+    const filter = e.currentTarget.value;
+
+    const issues = await api.get(`/repos/${repository.full_name}/issues`, {
+      params: {
+        state: filter,
+        per_page: 5,
+      },
+    });
+
+    this.setState({ issueFilter: filter, issues: issues.data, loading: 0 });
+  };
 
   render() {
     // we implemented it because ESLint is warning on state declaration
@@ -66,6 +84,29 @@ export default class Repository extends Component {
           <h1>{repository.name}</h1>
           <p>{repository.description}</p>
         </Owner>
+
+        <SelectIssueFilter onChange={this.handleIssueFilter}>
+          <option value="all">Show all issues</option>
+          <option value="open">Show only opened issues</option>
+          <option value="closed">Show only closed issues</option>
+        </SelectIssueFilter>
+
+        <IssueList>
+          {issues.map(issue => (
+            <li key={String(issue.id)}>
+              <img src={issue.user.avatar_url} alt={issue.user.login} />
+              <div>
+                <strong>
+                  <a href={issue.html_url}>{issue.title}</a>
+                  {issue.labels.map(label => (
+                    <span key={label.id}>{label.name}</span>
+                  ))}
+                </strong>
+                <p>{issue.user.login}</p>
+              </div>
+            </li>
+          ))}
+        </IssueList>
       </Container>
     );
   }

@@ -7,10 +7,16 @@ export const Form = styled.form`
 
   input {
     flex: 1;
-    border: 1px solid #eee;
+    border: 1px solid ${props => (props.error === 1 ? 'red' : '#eee')};
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
+    border-color: ;
+  }
+
+  p {
+    color: red;
+    font-size: 10px;
   }
 `;
 
@@ -22,6 +28,10 @@ const rotate = keyframes`
   to {
     transform: rotate(360deg);
   }
+`;
+
+export const ErrorMsg = styled.small`
+  color: red;
 `;
 
 export const SubmitButton = styled.button.attrs(props => ({

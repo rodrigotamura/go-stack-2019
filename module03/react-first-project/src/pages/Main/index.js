@@ -9,13 +9,15 @@ import api from '../../services/api';
 
 // for routes navigation
 
-import { Form, SubmitButton, List } from './styles';
+import { Form, ErrorMsg, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
   state = {
     newRepo: '',
     repositories: [],
     loading: 0,
+    error: 0,
+    errorMessage: '',
   };
 
   // loading repositories from local storage
@@ -43,27 +45,45 @@ export default class Main extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    // showing loading
-    this.setState({ loading: 1 });
+    this.setState({
+      loading: 1, // showing loading
+      error: 0, // removing errors
+    });
 
     const { newRepo, repositories } = this.state;
 
-    const response = await api.get(`/repos/${newRepo}`);
+    try {
+      // checking if field is empty
+      if (newRepo === '') {
+        throw new Error('Plese, type something');
+      }
 
-    // storing somewhere this repo
-    const data = {
-      name: response.data.full_name,
-    };
-    // attaching into this.state.repositories
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: '',
-      loading: 0,
-    });
+      // check if given repo already exists
+      const repoExists = repositories.find(repo => repo.name === newRepo);
+
+      if (repoExists) {
+        throw new Error('The given repository already exists');
+      }
+
+      const response = await api.get(`/repos/${newRepo}`);
+      // storing somewhere this repo
+      const data = {
+        name: response.data.full_name,
+      };
+      // attaching into this.state.repositories
+      this.setState({
+        repositories: [...repositories, data],
+        newRepo: '',
+        loading: 0,
+        error: 0,
+      });
+    } catch (err) {
+      this.setState({ error: 1, loading: 0, errorMessage: err.message });
+    }
   };
 
   render() {
-    const { newRepo, loading, repositories } = this.state;
+    const { newRepo, loading, repositories, error, errorMessage } = this.state;
 
     return (
       <Container>
@@ -71,8 +91,7 @@ export default class Main extends Component {
           <FaGitAlt />
           Repositories
         </h1>
-
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} error={error}>
           <input
             type="text"
             placeholder="Add repository (<user>/<repo-name>)"
@@ -90,6 +109,8 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
+
+        {error === 1 && <ErrorMsg>{errorMessage}</ErrorMsg>}
 
         <List>
           {repositories.map(repository => (
