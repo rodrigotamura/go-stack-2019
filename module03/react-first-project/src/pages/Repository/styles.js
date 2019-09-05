@@ -19,6 +19,20 @@ export const Owner = styled.header`
     color: black;
     font-size: 16px;
     text-decoration: none;
+    margin-right: auto;
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      color: #eee;
+      background: #333;
+      transition: all 200ms;
+    }
   }
 
   img {
@@ -39,6 +53,49 @@ export const Owner = styled.header`
     line-height: 1.4;
     text-align: center;
     max-width: 400px;
+  }
+`;
+
+export const Pagination = styled.div`
+  margin: 25px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    border: solid #eee;
+    border-width: 1px 0;
+    padding: 15px;
+  }
+
+  button {
+    display: flex;
+    border: none;
+    padding: 0.5rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: #000;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 150ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    svg {
+      margin: 0 10px;
+    }
+
+    &:hover {
+      background: #555;
+    }
+
+    &[disabled] {
+      background: #555;
+      cursor: not-allowed;
+    }
   }
 `;
 
