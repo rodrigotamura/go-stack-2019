@@ -17,8 +17,6 @@ const styles = StyleSheet.create({
   },
 });
 
-console.tron.log('Hi!');
-
 const App = () => {
   return (
     <View style={styles.container}>

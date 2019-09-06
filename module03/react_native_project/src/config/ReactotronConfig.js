@@ -5,7 +5,7 @@ if (__DEV__) {
   // the app in an develop environment
   // So, everything that is within this scope will not run in production environment.
 
-  const tron = Reactotron.configure({ host: '10.1.1.219' })
+  const tron = Reactotron.configure()
                   .useReactNative()
                   .connect();
 

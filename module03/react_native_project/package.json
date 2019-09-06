@@ -10,6 +10,7 @@
   "dependencies": {
     "react": "16.8.6",
     "react-native": "0.60.5",
+    "react-native-navigation": "^2.27.4",
     "reactotron-react-native": "^3.6.5"
   },
   "devDependencies": {
