@@ -1,14 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-
+import './config/ReactotronConfig';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +16,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+console.tron.log('Hi!');
 
 const App = () => {
   return (

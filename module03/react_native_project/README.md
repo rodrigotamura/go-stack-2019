@@ -103,3 +103,63 @@ For all this implementation it is important to restart the RN project in your em
 
 `$ react-native start --reset-cache`
 (_Note: in many cases of issues caused by something are solved running wether command above or `$ react-native run-android`_).
+
+# Configuring Reactotron
+
+[Reactotron](https://github.com/infinitered/reactotron) is a debugger. Please install following instructions from [this link](https://github.com/infinitered/reactotron/blob/master/docs/quick-start-react-native.md) and download the desktop app [right here](https://github.com/infinitered/reactotron/blob/master/docs/installing.md). You need to choose the first one that is NOT beta.
+
+After installed, run the command `$ yarn add reactotron-react-native`.
+
+Create [/src/index.js](./src/index.js). Transfer the content from `/App.js` into this created file and exclude `/App.js`.
+
+Go to [./index.js](./index.js) and apply the following changes:
+
+```javascript
+/**
+ * @format
+ */
+
+import { AppRegistry } from 'react-native';
+import App from './src'; <----
+import { name as appName } from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);
+```
+
+Now, create [./src/config/ReactotronConfig.js](./src/config/ReactotronConfig.js), and open it for further implementations. You will se that `__DEV__` global variable is not recognized by ESLint, that's why is showing an error. T fix it open [.eslintrc.js](./eslintrc.js) and add:
+
+```javascript
+globals: {
+  Atomics: 'readonly',
+  SharedArrayBuffer: 'readonly',
+  __DEV__: 'readonly',
+},
+```
+
+Now, in [/src/index.js](./src/index.js) let's include the configuration of Reactotron.
+
+### Testing Reactotron
+
+Open Reactotron Desktop and running your emulator or device, reload the application (shake device and reload).
+
+If you are using Android, we need implement some extra configurations:
+
+Open [/src/config/ReactotronConfig.js](./src/config/ReactotronConfig.js) and add this configuration:
+
+```javascript
+const tron = Reactotron.configure({ host: '<your-ip>' })
+  .useReactNative()
+  .connect();
+```
+
+If your Reactotron Desktop is not showing anything yet, you will need to make a port redirection with **ADB**:
+
+1. Take off the last implemented code in [/src/config/ReactotronConfig.js](./src/config/ReactotronConfig.js):
+
+```javascript
+const tron = Reactotron.configure()
+  .useReactNative()
+  .connect();
+```
+
+2. Run command `$ adb reverse tcp:9090 tcp:9090`
