@@ -163,3 +163,69 @@ const tron = Reactotron.configure()
 ```
 
 2. Run command `$ adb reverse tcp:9090 tcp:9090`
+
+# React Navigation
+
+Let's create [/src/pages/Main/index.js](./src/pages/Main/index.js) and [/src/pages/User/index.js](./src/pages/User/index.js).
+
+Within `/src/pages` we will store every component pages.
+
+Create also [/src/routes.js](./src/routes.js) and install `$ yarn add react-navigation react-native-gesture-handler react-native-reanimated`
+
+- **react-native-gesture-handler** deals with gestures in our app;
+- **react-native-reanimated** deals with animations when user go to another page.
+
+### Extra configs for Android devices
+
+We need also need to add some code lines inside [/android/app/src/main/java/com/react_native_project/MainActivity.java](./android/app/src/main/java/com/react_native_project/MainActivity.java) and change into:
+
+```java
+package com.react_native_project;
+
+import com.facebook.react.ReactActivity;
+
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+
+public class MainActivity extends ReactActivity {
+
+    /**
+     * Returns the name of the main component registered from JavaScript.
+     * This is used to schedule rendering of the component.
+     */
+    @Override
+    protected String getMainComponentName() {
+        return "react_native_project";
+    }
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+      return new ReactActivityDelegate(this, getMainComponentName()) {
+        @Override
+        protected ReactRootView createRootView() {
+        return new RNGestureHandlerEnabledRootView(MainActivity.this);
+        }
+      };
+    }
+}
+
+```
+
+We need to run again `$ yarn react-native run-android` in order to compile this changed Java file again.
+
+### Extra configs for iOS
+
+It is necessary only run `$ pod install` in order to make installations in native codes.
+
+If some error happened, you will need to install [Cocoapods](https://cocoapods.org)
+
+Please run `$yarn react-native run-ios`
+
+### Preparing routes
+
+Open [/src/routes.js](./src/routes.js) and see implementations there.
+
+(If you want to use createStackNavigator, you will need install separated `$ yarn add react-navigation-stack` and import it).
+
+You need now to import `routes.js` into [/src/index.js](./src/index.js) and add some extra configurations there.
