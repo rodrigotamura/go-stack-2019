@@ -237,3 +237,43 @@ Statusbar is that place where is placed clock, battery status, and so on. We can
 We can import `StatusBar` from `react-native` lib. You can see the implementation in [/src/index.js](./src/index.js).
 
 Note: `StatusBar` is a React NAtive component.
+
+# Styled components
+
+You can see installation [here](https://github.com/rodrigotamura/go-stack-2019/tree/master/module03/react-first-project#styled-components).
+
+One of the biggest diferences from ReactJS (web) is that:
+
+- We must import from `styled-component\**native**`;
+- We must not use div, p, h1, h2, or another HTML tag.
+- We might not make chained stylization
+
+Remembering that each component is setted to use flexbox by default.
+
+**We cannot** set global stylization in our App, we only can create stylized components and share with while application.
+
+# Issues
+
+If you are a Ubuntu user, and when you are trying to test your RN code and return this error:
+
+```
+fs.js:1431
+    throw error;
+    ^
+
+Error: watch /home/fooBar/dev/blah/lib/tools/testing/node_modules/core-js/modules ENOSPC
+    at exports._errnoException (util.js:1022:11)
+    at FSWatcher.start (fs.js:1429:19)
+    at Object.fs.watch (fs.js:1456:11)
+    at NodeWatcher.watchdir (/home/fooBar/.config/yarn/global/node_modules/sane/src/node_watcher.js:148:20)
+    at Walker.<anonymous> (/home/fooBar/.config/yarn/global/node_modules/sane/src/node_watcher.js:361:12)
+    at emitTwo (events.js:106:13)
+    at Walker.emit (events.js:191:7)
+    at /home/fooBar/.config/yarn/global/node_modules/walker/lib/walker.js:69:16
+    at go$readdir$cb (/home/fooBar/.config/yarn/global/node_modules/graceful-fs/graceful-fs.js:149:14)
+    at FSReqWrap.oncomplete (fs.js:123:15)
+```
+
+Try to run the follow command and try again.
+
+`$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
