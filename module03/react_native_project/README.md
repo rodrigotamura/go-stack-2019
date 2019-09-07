@@ -273,6 +273,14 @@ Please, open [/src/pages/Main/index.js](./src/pages/Main/index.js) and check it 
 
 Visit https://oblador.github.io/react-native-vector-icons/ in order to check the available icons sets.
 
+# Accessing GitHub API
+
+Firstly, we need change function component into class component in [Main Component](./src/pages/Main/index.js) because we will use States.
+
+Let's install Axios: `$ yarn add axios`.
+
+Let's create [/src/services/api.js](./src/serevices/api.js). Open it for further informations. Import it in [Main Component](./src/pages/Main/index.js).
+
 # Issues
 
 If you are a Ubuntu user, and when you are trying to test your RN code and return this error:
