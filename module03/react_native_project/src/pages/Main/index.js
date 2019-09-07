@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
+import PropTypes from 'prop-types';
 import api from '../../services/api';
 // using Material Icons, but you can choose another
 
@@ -19,6 +20,18 @@ import { Container,
 
 
 export default class Main extends Component {
+  // Using createStackNavigator we can set the header of the current page
+  Main.navigationOptions = {
+    title: 'Users',
+  }
+
+  // PropTypes
+  static propTypes = {
+    navigation: this.propTypes.shape({
+      navigate: PropTypes.func
+    }).isRequired,
+  }
+
 
   state = {
     newUser: '', // it will store what the user is typing in field
@@ -71,6 +84,14 @@ export default class Main extends Component {
     this.setState({ loading: false });
   }
 
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    // 1st parameter is the Page component
+    // 2nd parameter we send data
+    navigation.navigate('User', { user });
+  }
+
   render() {
     const { users, newUser, loading } = this.state;
 
@@ -115,7 +136,7 @@ export default class Main extends Component {
             <Avatar source={ { uri: item.avatar } } />
             <Name>{item.name}</Name>
             <Bio>{item.bio}</Bio>
-            <ProfileButton onPress={()=>{}}>
+            <ProfileButton onPress={() => this.handleNavigate(item)}>
               <ProfileButtonText>View profile</ProfileButtonText>
             </ProfileButton>
           </User>
@@ -125,9 +146,4 @@ export default class Main extends Component {
   );
   }
 
-}
-
-// Using createStackNavigator we can set the header of the current page
-Main.navigationOptions = {
-  title: 'Users',
 }

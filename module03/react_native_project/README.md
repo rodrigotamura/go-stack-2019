@@ -307,6 +307,22 @@ Let's import installed lib in [Main Component](./src/pages/Main/index.js).
 
 The limitation for AsyncStorage is the memmory space of device.
 
+# Navigating by routes
+
+As ReactJS (web) we do not have a Link Component to implement navigation between pages.
+
+Every navigation are implemented by JS comming from a function of page component included in `createAppContainer`, as a property.
+
+If you run within one page component, like Main Component, the command `console.tron.log(this.props)`, you will see `navigation` property there with a set of methods.
+
+The important method for now is `props.navigation.navigate()`. Let's implement it in [Main Component](./src/pages/Main/index.js), within method `handleNavigate()`.
+
+# Validating parameters passed between components
+
+Similar to ReactJS, let's install `$ yarn add prop-types`.
+
+We only validate whatever we really need inside a component.
+
 # Issues
 
 If you are a Ubuntu user, and when you are trying to test your RN code and return this error:
