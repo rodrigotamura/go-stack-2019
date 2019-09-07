@@ -18,12 +18,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './pages/Main';
 import User from './pages/User';
+import Repo from './pages/Repo';
 
 
 const Routes = createAppContainer(
   createStackNavigator({
     Main,
-    User
+    User,
+    Repo
   }, {
     headerLayoutPreset: 'center', // centering header title
     headerBackTitleVisible: false, // text of back will not appear

@@ -83,6 +83,14 @@ export default class User extends Component {
     this.load(nextPage);
   };
 
+  handleOpenRepo = (repo) => {
+    const { navigation } = this.props;
+
+    // 1st parameter is the Page component
+    // 2nd parameter we send data
+    navigation.navigate('Repo', { repo });
+  }
+
   render() {
     const { stars, loading, refreshing } = this.state;
     const { navigation } = this.props;
@@ -109,7 +117,7 @@ export default class User extends Component {
           <Starred>
             { item.owner.avatar_url && (<OwnerAvatar source={{ uri: item.owner.avatar_url }} />) }
             <Info>
-              <Title>{item.name}</Title>
+              <Title onPress={() => this.handleOpenRepo(item)}>{item.name}</Title>
               <Author>{item.owner.login}</Author>
             </Info>
           </Starred>

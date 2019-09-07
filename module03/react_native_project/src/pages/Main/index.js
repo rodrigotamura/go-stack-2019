@@ -3,7 +3,9 @@ import { Keyboard, ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
+import { WebView } from 'react-native-webview';
 import api from '../../services/api';
+
 // using Material Icons, but you can choose another
 
 import { Container,
