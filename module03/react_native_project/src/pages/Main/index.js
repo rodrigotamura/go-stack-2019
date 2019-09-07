@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard } from 'react-native';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 // using Material Icons, but you can choose another
@@ -22,10 +22,13 @@ export default class Main extends Component {
   state = {
     newUser: '', // it will store what the user is typing in field
     users: [],
+    loading: false
   }
 
   handleAddUser = async () => {
     const { users, newUser } = this.state;
+
+    this.setState({ loading: true });
 
     const response = await api.get(`/users/${newUser}`);
 
@@ -42,10 +45,13 @@ export default class Main extends Component {
 
     // hidening keyboard
     Keyboard.dismiss();
+
+    // Hidden loading
+    this.setState({ loading: false });
   }
 
   render() {
-    const { users, newUser } = this.state;
+    const { users, newUser, loading } = this.state;
 
     return (
     <Container>
@@ -63,9 +69,13 @@ export default class Main extends Component {
           onChangeText={text => this.setState({ newUser: text })}
           returnKeyType="send"
           onSubmitEditing={this.handleAddUser}
+          value={newUser}
         />
-        <SubmitButton onPress={this.handleAddUser}>
-          <Icon name="add" size={20} color="#FFF" />
+        <SubmitButton loading={loading} onPress={this.handleAddUser}>
+          { loading ? (<ActivityIndicator color="#FFF" />)
+          :
+          (<Icon name="add" size={20} color="#FFF" />) }
+
         </SubmitButton>
       </Form>
 

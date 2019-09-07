@@ -287,6 +287,12 @@ Different from web, in RN we do not have `<ul>` or `<li>` for list creating, nei
 
 So, we have a component called **FlatList**. See implementation in [Main Component](./src/pages/Main/index.js).
 
+# Loading and disable
+
+Let's implement a loading inside submit button and disabling and changing the input text. Check out in [Main Component](./src/pages/Main/index.js).
+
+We going to implement `ActivityIndicator` from `react-native` that will show the default loading of iOS or Android.
+
 # Issues
 
 If you are a Ubuntu user, and when you are trying to test your RN code and return this error:
