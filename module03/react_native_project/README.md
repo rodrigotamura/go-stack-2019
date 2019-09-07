@@ -293,6 +293,20 @@ Let's implement a loading inside submit button and disabling and changing the in
 
 We going to implement `ActivityIndicator` from `react-native` that will show the default loading of iOS or Android.
 
+# Saving in storage
+
+React Native does not have local storage to make this persistence.
+
+So, we will install a lib: `$ yarn add @react-native-community/async-storage`.
+
+Run `$ react-native run-android / run-ios`.
+
+And for iOS you need to run `pod install`.
+
+Let's import installed lib in [Main Component](./src/pages/Main/index.js).
+
+The limitation for AsyncStorage is the memmory space of device.
+
 # Issues
 
 If you are a Ubuntu user, and when you are trying to test your RN code and return this error:

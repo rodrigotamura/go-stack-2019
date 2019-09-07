@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 // using Material Icons, but you can choose another
 
@@ -23,6 +24,26 @@ export default class Main extends Component {
     newUser: '', // it will store what the user is typing in field
     users: [],
     loading: false
+  }
+
+  async componentDidMount() {
+    const users = await AsyncStorage.getItem('users');
+
+    // wether has users
+    if(users) {
+      this.setState( { users: JSON.parse(users) } );
+    }
+
+  }
+
+  async componentDidUpdate(_, prevState) {
+    const { users } = this.state;
+
+    if(prevState.users !== this.state.users){
+      await AsyncStorage.setItem('users', JSON.stringify(users));
+      // async/await is not necessary here because we will not have
+      // anything else to run after this.
+    }
   }
 
   handleAddUser = async () => {
