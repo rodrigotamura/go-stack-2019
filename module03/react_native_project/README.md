@@ -281,6 +281,12 @@ Let's install Axios: `$ yarn add axios`.
 
 Let's create [/src/services/api.js](./src/serevices/api.js). Open it for further informations. Import it in [Main Component](./src/pages/Main/index.js).
 
+# Listing
+
+Different from web, in RN we do not have `<ul>` or `<li>` for list creating, neither we can not use `Array.map()` function. Because RN already has its own component for lists.
+
+So, we have a component called **FlatList**. See implementation in [Main Component](./src/pages/Main/index.js).
+
 # Issues
 
 If you are a Ubuntu user, and when you are trying to test your RN code and return this error:

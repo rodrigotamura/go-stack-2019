@@ -4,7 +4,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 // using Material Icons, but you can choose another
 
-import { Container,  SubmitButton, Input, Form } from './styles';
+import { Container,
+          SubmitButton,
+          Input,
+          Form,
+          List,
+          User,
+          Avatar,
+          Name,
+          Bio,
+          ProfileButton,
+          ProfileButtonText } from './styles';
 
 
 export default class Main extends Component {
@@ -25,7 +35,6 @@ export default class Main extends Component {
       bio: response.data.bio,
       avatar: response.data.avatar_url,
     };
-
     this.setState({
       users: [...users, data],
       newUser: '',
@@ -59,6 +68,28 @@ export default class Main extends Component {
           <Icon name="add" size={20} color="#FFF" />
         </SubmitButton>
       </Form>
+
+      {/*
+        Usage of FlatList component:
+         - data={array}: Array of content
+         - keyExtractor: similar to key from ReactJS, we need set the unique ID from each item from Array.
+         - renderItem: it wll render our list and we are desustructuring and get 'item', that is the element of Array
+      */}
+      <List
+        data={users}
+        keyExtractor={user => user.login}
+        renderItem={( {item} ) => (
+          <User>
+            {/* source -> like src from <img>, and we need to pass an object */}
+            <Avatar source={ { uri: item.avatar } } />
+            <Name>{item.name}</Name>
+            <Bio>{item.bio}</Bio>
+            <ProfileButton onPress={()=>{}}>
+              <ProfileButtonText>View profile</ProfileButtonText>
+            </ProfileButton>
+          </User>
+        )}
+         />
     </Container>
   );
   }
