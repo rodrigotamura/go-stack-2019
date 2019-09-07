@@ -229,3 +229,11 @@ Open [/src/routes.js](./src/routes.js) and see implementations there.
 (If you want to use createStackNavigator, you will need install separated `$ yarn add react-navigation-stack` and import it).
 
 You need now to import `routes.js` into [/src/index.js](./src/index.js) and add some extra configurations there.
+
+# Configuring Statusbar
+
+Statusbar is that place where is placed clock, battery status, and so on. We can set some styles there.
+
+We can import `StatusBar` from `react-native` lib. You can see the implementation in [/src/index.js](./src/index.js).
+
+Note: `StatusBar` is a React NAtive component.
