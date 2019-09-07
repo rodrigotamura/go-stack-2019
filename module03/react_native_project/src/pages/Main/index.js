@@ -21,13 +21,13 @@ import { Container,
 
 export default class Main extends Component {
   // Using createStackNavigator we can set the header of the current page
-  Main.navigationOptions = {
+  static navigationOptions = {
     title: 'Users',
   }
 
   // PropTypes
   static propTypes = {
-    navigation: this.propTypes.shape({
+    navigation: PropTypes.shape({
       navigate: PropTypes.func
     }).isRequired,
   }
