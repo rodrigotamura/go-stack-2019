@@ -242,15 +242,36 @@ Note: `StatusBar` is a React NAtive component.
 
 You can see installation [here](https://github.com/rodrigotamura/go-stack-2019/tree/master/module03/react-first-project#styled-components).
 
-One of the biggest diferences from ReactJS (web) is that:
+Some of the biggest diferences from ReactJS (web) is that:
 
 - We must import from `styled-component\**native**`;
 - We must not use div, p, h1, h2, or another HTML tag.
 - We might not make chained stylization
+- With StyledComponents we can stylize components that are not native, like RectButton, from `react-native-gesture-handler` (see [an example here](./src/pages/Main/styles.js))
 
 Remembering that each component is setted to use flexbox by default.
 
 **We cannot** set global stylization in our App, we only can create stylized components and share with while application.
+
+# Stylizing forms
+
+Please, open [/src/pages/Main/index.js](./src/pages/Main/index.js)
+
+# Using icons
+
+We need to install `$ yarn add react-native-vector-icons` in order to add icons in vector format in a RN app.
+
+This icon lib needs also some native installations:
+
+`$ react-native link react-native-vector-icons`
+
+(everytime we make `link` it is necessary to run `$ react-native run-ios / run-android`).
+
+### Implementation
+
+Please, open [/src/pages/Main/index.js](./src/pages/Main/index.js) and check it out how to implement it.
+
+Visit https://oblador.github.io/react-native-vector-icons/ in order to check the available icons sets.
 
 # Issues
 

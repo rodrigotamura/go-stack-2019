@@ -13,6 +13,7 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-navigation": "^2.27.4",
     "react-native-reanimated": "^1.2.0",
+    "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.3",
     "reactotron-react-native": "^3.6.5",

@@ -1,12 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Container } from './styles';
+// using Material Icons, but you can choose another
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import {Text} from 'react-native';
+import { Container,  SubmitButton, Input, Form } from './styles';
+
 
 export default function Main() {
   return (
     <Container>
-      <Text>Rodrigo</Text>
+      <Form>
+        {/* autoCorrect={false} -> Setting to not fix words automatically */}
+        {/* autoCapitalize  ="none" -> Setting to not capitalize automatically */}
+        <Input
+          autocCorrect={false}
+          autoCapitalize="none"
+          placeholder="Add user"
+        />
+        <SubmitButton>
+          <Icon name="add" size={20} color="#FFF" />
+        </SubmitButton>
+      </Form>
     </Container>
   );
 }
