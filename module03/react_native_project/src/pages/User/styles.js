@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Container = styled.View`
   flex: 1;
@@ -77,3 +78,23 @@ export const Author = styled.Text`
   margin-top: 2px;
 `;
 
+export const ContainerLoading = styled.View`
+  margin-top: 100px;
+`;
+
+export const NoResults = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
+export const NoResultsText = styled.Text`
+  font-size: 30px;
+  font-weight: bold;
+  color: #999;
+  text-align: center;
+  flex-direction: column;
+`;
+
+export const NoResultsIcon = styled(Icon)`
+  padding-right: 15px;
+`;

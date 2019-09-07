@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Keyboard, ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
@@ -36,7 +36,8 @@ export default class Main extends Component {
   state = {
     newUser: '', // it will store what the user is typing in field
     users: [],
-    loading: false
+    loading: false,
+    error: '',
   }
 
   async componentDidMount() {
@@ -62,26 +63,45 @@ export default class Main extends Component {
   handleAddUser = async () => {
     const { users, newUser } = this.state;
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: '' });
 
-    const response = await api.get(`/users/${newUser}`);
+    if(newUser !== ''){
+      try {
+        const response = await api.get(`/users/${newUser}`);
 
-    const data = {
-      name: response.data.name,
-      login: response.data.login,
-      bio: response.data.bio,
-      avatar: response.data.avatar_url,
-    };
-    this.setState({
-      users: [...users, data],
-      newUser: '',
-    });
+        const data = {
+          name: response.data.name,
+          login: response.data.login,
+          bio: response.data.bio,
+          avatar: response.data.avatar_url,
+        };
+        this.setState({
+          users: [...users, data],
+          newUser: '',
+        });
 
-    // hidening keyboard
-    Keyboard.dismiss();
+        // hidening keyboard
+        Keyboard.dismiss();
+      }catch(err){
+        this.showAlert("Error", "Sorry, but this username doesn't exist.");
+        this.setState({ newUser: '' });
+      }
+    }else{
+      this.showAlert("Notification", "Please fill the field with any GitHub's username");
+    }
 
     // Hidden loading
     this.setState({ loading: false });
+  }
+
+  showAlert(title, message) {
+    Alert.alert(
+      title,
+      message,
+      [{
+        text: 'OK',
+      }]
+    );
   }
 
   handleNavigate = (user) => {

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Text } from 'react-native';
 import api from '../../services/api';
 
 import { Container, Header, Avatar, Name, Bio,
-        Stars, Starred, OwnerAvatar, Info, Title, Author } from './styles.js';
+        Stars, Starred, OwnerAvatar, Info, Title,
+        Author, ContainerLoading, NoResults, NoResultsText,
+        NoResultsIcon } from './styles.js';
 
 // import { Container } from './styles';
 
@@ -35,28 +37,54 @@ export default class User extends Component {
 
   static propTypes = {
     navigation: PropTypes.shape({
-      getParam: PropTypes.func
+      getParam: PropTypes.func,
+      navigate: PropTypes.func,
     }).isRequired,
   }
 
   state = {
     stars: [],
-    loading: false
+    loading: true,
+    page: 1,
+    refreshing: false,
   }
 
   async componentDidMount() {
-    this.setState({ loading: true });
+    this.load();
+  }
 
+  load = async (page = 1) => {
+    const { stars } = this.state;
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
-    const response = await api.get(`/users/${user.login}/starred`);
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: { page }
+    });
 
-    this.setState({ stars: response.data, loading: false });
+    this.setState({
+      stars: page >= 2 ? [...stars, ...response.data] : response.data,
+      page,
+      loading: false,
+      refreshing: false,
+    });
   }
 
+  refreshList = () => {
+    this.setState({ refreshing: true, stars: [] }, this.load);
+  };
+
+
+  handleLoadMore = async () => {
+    const { page } = this.state;
+
+    const nextPage = page + 1;
+
+    this.load(nextPage);
+  };
+
   render() {
-    const { stars, loading } = this.state;
+    const { stars, loading, refreshing } = this.state;
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
@@ -68,23 +96,24 @@ export default class User extends Component {
           <Bio>{user.bio}</Bio>
         </Header>
 
-        { loading ? (<ActivityIndicator color="#7159c1" />)
-        :
-        (
-          <Stars
-          data={stars}
-          keyExtractor={star => String(star.id)}
-          // onEndReached={this.handleLoadMore} // loads when end reach
-          renderItem={({item}) => (
-            <Starred>
-              <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
-              <Info>
-                <Title>{item.name}</Title>
-                <Author>{item.owner.login}</Author>
-              </Info>
-            </Starred>
-          )} />
-        )}
+        { loading && (<ContainerLoading><ActivityIndicator color="#7159c1" size="large" /></ContainerLoading>) }
+        { (!loading && stars && stars.length === 0) && (<NoResults><NoResultsText><NoResultsIcon name="sleep" color="#999" size={36} /> <Text>No starred repos</Text></NoResultsText></NoResults>) }
+        <Stars
+        data={stars}
+        onRefresh={this.refreshList}
+        refreshing={refreshing} // pull down the list in order to refresh it
+        keyExtractor={star => String(star.id)}
+        onEndReached={this.handleLoadMore} // loads when end reach
+        onEndReachedThreshould={0.2} // loads when end reach
+        renderItem={({item}) => (
+          <Starred>
+            { item.owner.avatar_url && (<OwnerAvatar source={{ uri: item.owner.avatar_url }} />) }
+            <Info>
+              <Title>{item.name}</Title>
+              <Author>{item.owner.login}</Author>
+            </Info>
+          </Starred>
+        )} />
 
       </Container>
     );
