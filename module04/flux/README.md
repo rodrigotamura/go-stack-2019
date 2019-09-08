@@ -45,3 +45,9 @@ function App() {
   );
 }
 ```
+
+# Polished
+
+Polished is a library that deal with colors in JS. It could lighten or darken a color, add opcity, and so on.
+
+We want to darken a button whem is is hover ([see here an example](./src/components/Home/styles.js)).
