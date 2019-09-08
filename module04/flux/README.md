@@ -51,3 +51,18 @@ function App() {
 Polished is a library that deal with colors in JS. It could lighten or darken a color, add opcity, and so on.
 
 We want to darken a button whem is is hover ([see here an example](./src/components/Home/styles.js)).
+
+# API with JSON Server
+
+We will consume one API in order to populate our shoes object using [JSON Server](https://github.com/typicode/json-server) that is a full fake REST API with zero coding in less than 30 seconds (seriously). Created with <3 for front-end developers who need a quick back-end for prototyping and mocking.
+
+`$ yarn global add json-server`
+
+We will create the file [server.json](./project/server.json). It provides two routes: stock and products.
+
+Run `$ json-server server.json -p 3333 -w`
+(`-w` flag is live reload, if we change server.json)
+
+Noew we have a fake API using JSON Server accessing `http://localhost:3333/`.
+
+And we will user Axios for API sonsuming [/src/services/api.js](./project/src/services/api.js)
