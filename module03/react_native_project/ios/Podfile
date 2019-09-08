@@ -28,6 +28,8 @@ target 'react_native_project' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
 
+
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'

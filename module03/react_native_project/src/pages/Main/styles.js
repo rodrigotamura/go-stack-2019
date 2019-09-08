@@ -40,14 +40,13 @@ export const SubmitButton = styled(RectButton)`
   border-radius: 4px;
   margin-left: 10px;
   padding: 0 12px;
-  opacity: ${props => (props.loading ? 0.7 : 1)}
+  opacity: ${props => (props.loading ? 0.7 : 1)};
 `;
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false, // removing scrollbar
 })`
   margin-top: 20px;
-
 `;
 
 export const User = styled.View`
@@ -71,7 +70,7 @@ export const Name = styled.Text`
 `;
 
 export const Bio = styled.Text.attrs({
-  numberOfLines: 2 // more than 2 lines will put ...
+  numberOfLines: 2, // more than 2 lines will put ...
 })`
   font-size: 13px;
   line-height: 18px;
@@ -96,4 +95,3 @@ export const ProfileButtonText = styled.Text`
   color: #fff;
   text-transform: uppercase;
 `;
-
