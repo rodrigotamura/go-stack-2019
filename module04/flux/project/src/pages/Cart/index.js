@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { MdDelete, MdRemoveCircleOutline, MdAddCircleOutline } from 'react-icons/md';
 import { Container, ProductTable, Total } from './styles';
 
-export default class Cart extends Component {
-  render() {
-    return (
+function Cart ({ cart }) {
+
+
+  return (
       <Container>
         <ProductTable>
         <thead>
@@ -17,34 +19,36 @@ export default class Cart extends Component {
         </thead>
 
         <tbody>
-          <tr>
-            <td>
-              <img src="https://static.netshoes.com.br/produtos/tenis-mizuno-ez-flex-n-masculino/06/D16-3549-006/D16-3549-006_detalhe2.jpg?ims=326x" alt="Shoes" />
-            </td>
-            <td>
-              <strong>Nice shoes</strong>
-              <span>R$129,90</span>
-            </td>
-            <td>
-              <div>
+          { cart.map(product => (
+            <tr>
+              <td>
+                <img src={product.image} alt={product.title} />
+              </td>
+              <td>
+                <strong>{product.title}</strong>
+                <span>{product.priceFormatted}</span>
+              </td>
+              <td>
+                <div>
+                  <button type="button">
+                    <MdRemoveCircleOutline size={20} color="#7159c1" />
+                  </button>
+                  <input type="number" readOnly value={product.amount} />
+                  <button type="button">
+                    <MdAddCircleOutline size={20} color="#7159c1" />
+                  </button>
+                </div>
+              </td>
+              <td>
+                <strong>R$258,80</strong>
+              </td>
+              <td>
                 <button type="button">
-                  <MdRemoveCircleOutline size={20} color="#7159c1" />
+                  <MdDelete size={15} color="#7159c1" />
                 </button>
-                <input type="number" readOnly value={2} />
-                <button type="button">
-                  <MdAddCircleOutline size={20} color="#7159c1" />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>R$258,80</strong>
-            </td>
-            <td>
-              <button type="button">
-                <MdDelete size={15} color="#7159c1" />
-              </button>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          )) }
         </tbody>
         </ProductTable>
 
@@ -58,5 +62,17 @@ export default class Cart extends Component {
         </footer>
       </Container>
     );
-  }
 }
+
+// mapping states and converting them into properties (props) of Component
+/**
+ * It is same thing of:
+  export default connect(state => ({
+    cart: state.cart,
+  }))(Cart);
+ */
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);

@@ -5,7 +5,12 @@ export default function cart(state = [], action) {
     case 'ADD_TO_CART':
       /// ...state will take every products which has in cart currently
       // and add action.product as new product
-      return [ ...state, action.product ];
+      return [ ...state,
+        {
+          ...action.product,
+          amount: 1
+        },
+      ];
     break;
     default: // returning previous state with any changes
       return state;
