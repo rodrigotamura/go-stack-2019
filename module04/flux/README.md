@@ -66,3 +66,43 @@ Run `$ json-server server.json -p 3333 -w`
 Noew we have a fake API using JSON Server accessing `http://localhost:3333/`.
 
 And we will user Axios for API sonsuming [/src/services/api.js](./project/src/services/api.js)
+
+# Internationalization (i18n)
+
+Working with listing of products, we can realize that the price is not formatted.
+
+Let's format it based on the locale setted in our project.
+
+Create [/src/util/format.js](./project/src/util/format.js) and it will contain the format functions.
+
+(Note that **/src/utils/** we will store every function that is usefu for all application).
+
+And we will use at [Home Page](./projects/src/pages/Home/index.js).
+
+# Configuring Redux
+
+Let's install a package that will integrate Redux with React: `$ yarn add redux react-redux`.
+
+Create:
+
+- /src/store -> this folder will stores every Redux files;
+- [/src/store/index.js](./project/src/store/index.js) -> Initial config for Redux. Open this file for further details.
+
+Import **react-redux** within [App.js](./project/src/App.js).
+
+**If you see an error** it means that you need to create a new Reducer function at [/src/store/index.js](./project/src/store/index.js). In this project we will create `cart()` reducer where the state will be an empty array.
+
+Let's create some others folders and file:
+
+- /src/store/modules/ -> we can create many modules, or many type of data we can store in Redux.
+- [/src/store/modules/cart/reducer.js] -> we will create `cart` reducer.
+
+NOTE: FOR ORGANIZATION we will not create the reducers directly in [/src/store/index.js](./project/src/store/index.js), we will separate in differents modules at /src/store/modules/\* and import them there.
+
+We can create a reducer for cart, reducer for users' information, reducer for anything.
+
+However if we want to create another reducers, we need firstly create [/src/src/store/modules/rootReducer.js](./project/src/src/store/modules/rootReducer.js). Open this file in order to understand how would we include more than one reducers.
+
+`CombineReducers` will combine many reducers at once.
+
+Finally we import `rootReducer.js` into [/src/store/index.js](./project/src/store/index.js)
