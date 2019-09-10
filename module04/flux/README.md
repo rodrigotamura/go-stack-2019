@@ -77,7 +77,7 @@ Create [/src/util/format.js](./project/src/util/format.js) and it will contain t
 
 (Note that **/src/utils/** we will store every function that is usefu for all application).
 
-And we will use at [Home Page](./projects/src/pages/Home/index.js).
+And we will use at [Home Page](./project/src/pages/Home/index.js).
 
 # Configuring Redux
 
@@ -95,7 +95,7 @@ Import **react-redux** within [App.js](./project/src/App.js).
 Let's create some others folders and file:
 
 - /src/store/modules/ -> we can create many modules, or many type of data we can store in Redux.
-- [/src/store/modules/cart/reducer.js] -> we will create `cart` reducer.
+- [/src/store/modules/cart/reducer.js](./project/src/store/modules/cart/reducer.js) -> we will create `cart` reducer.
 
 NOTE: FOR ORGANIZATION we will not create the reducers directly in [/src/store/index.js](./project/src/store/index.js), we will separate in differents modules at /src/store/modules/\* and import them there.
 
@@ -106,3 +106,81 @@ However if we want to create another reducers, we need firstly create [/src/src/
 `CombineReducers` will combine many reducers at once.
 
 Finally we import `rootReducer.js` into [/src/store/index.js](./project/src/store/index.js)
+
+# Using reducer - Adding produts into cart
+
+When user click on 'Add to cart' for a specific product, all information about this product will be added into cart reducer. And this cart reducer will be accessible in while application.
+
+1. Firstly we need to import a connector to redux in the component (see further details at [/src/pages/Main/index.js](./project/src/pages/Main/index.js)). `import { connect } from 'react-redux';`;
+2. Remove `export default` from Home Component;
+3. On last line, put `export default connect()(Home)`;
+
+Now, let's implement the action throwing at the button of add to cart from a product:
+
+```javascript
+handleAddProduct = product => {
+  // every componentn which we connect with Redux, that we use Connect
+  // receives a property called dispatch (this.props.dispatch), which fires an action into Redux
+
+  const { dispatch } = this.props;
+
+  // and we implement our action:
+  dispatch({
+    // every action has a type
+    type: 'ADD_TO_CART',
+
+    // and content
+    product,
+  })
+
+}
+
+{ products.map(product => (
+  // [ ... ]
+  <button type="button" onClick={() => this.handleAddProduct(product)}>
+}
+```
+
+Now, open [Cart Reducer](./project/src/store/modules/cart/reducer.js) and if you implement some `console.log('something')` and press the button, you will realize that the `cart()` reducer is firing. So, how Cart Reducer is firing? It's because **`dispatch` will execute every reducers configured in our application**.
+
+And, Cart Reducer receives two variables: **state** and **action** that we get the properties which we sent by `dispatch()`.
+
+- action: will come with `type` and the content of `product`;
+- state: is the previous state is the current state from the reducer. If Cart Reduces does not have any data yet, state will be an empty array.
+
+**Remembering that STATE in Reat is immutable**, the STATE from Redux is immutable as well.
+
+**Every reducer will have similar code**. Open [Cart Reducer](./project/src/store/modules/cart/reducer.js) to see this implementation.
+
+### Accessing states from Redux
+
+1. Let's open [Header Component](./project/src/components/Header/index.js), import Connect object:
+
+```javascript
+import { connect } from "react-redux";
+```
+
+2. Remove `export default` from Header Component;
+3. On last line, put `export default connect()(Heder)`;
+4. We will set some properties now:
+
+```javascript
+export default connect(
+  // retrieving a state we need in this component
+  // and we need to return it in object format (that's why we return with ({}) )
+  state => ({
+    // state.cart => 'cart' is the name of reducer we want to access to (see rootReducer.js)
+    cart: state.cart
+  })
+)(Heder);
+```
+
+5. Add 'cart' property within Header Component:
+
+```javascript
+function Header({ cart }) {
+  console.log(cart); // implementing it to test if we are really getting from Redux State
+}
+```
+
+So, **every component which has _connect_**, and some changing occurs with some state, this component will be rendered again with new states.
