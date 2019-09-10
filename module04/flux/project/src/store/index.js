@@ -22,9 +22,15 @@ import reducer from './modules/cart/reducer';
  */
 import rootReducer from './modules/rootReducer';
 
+/**
+ * Integrating REactotron into with Redux
+ */
+const enhancer =
+  process.env.NODE_ENV === "development" ? console.tron.createEnhancer() : null;
+
 
 // when we pass only one reducer basically our state has only one information
 // that, in this moment is cart's reducer
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, enhancer);
 
 export default store;

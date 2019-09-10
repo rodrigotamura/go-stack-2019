@@ -184,3 +184,60 @@ function Header({ cart }) {
 ```
 
 So, **every component which has _connect_**, and some changing occurs with some state, this component will be rendered again with new states.
+
+# Reactotron and Redux
+
+Notice: You need [Reactotron Desktop](https://github.com/infinitered/reactotron). Install it and continue...
+
+### Installing Reactottron in our project
+
+Let's install reactotron package and reactotron-redux for redux integration:
+
+`$ yarn add reactotron-react-js reactotron-redux`
+
+Now, create [/src/config/ReactotronConfig.js](./project/src/config/ReactotronConfig.js) and open it for further details of this implementation.
+
+Add this new rule into [/.eslintrc.js](./.eslintrc.js), because probably `console.tron` is showing some error by ESLint:
+
+```javascript
+rules: {
+  'prettier/prettier': 'error',
+  'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
+  'import/prefer-default-export': 'off',
+  'no-console': ['error', { allow: ['tron'] }],
+},
+```
+
+### Integrating Reactotron with Redux
+
+Open [/src/store/index.js](./project/src/store/index.js) and add:
+
+```javascript
+const enhancer =
+  process.env.NODE_ENV === "development" ? console.tron.createEnhancer() : null;
+```
+
+Add `enhancer` as the second parameter into `store`:
+
+```javascript
+//                                        \/
+const store = createStore(rootReducer, enhancer);
+```
+
+Now import `ReactotronConfig` into [App.js](./project/src/App.js), and Reactotron is totally integrated with ReactJS and Redux.
+
+### Reactotron with Redux tips
+
+**Tip 1:**
+At Reactotron Desktop you will see State menu, where you can create subscription. In this subscription we put a name of a reducer (for a while we only have `cart` - or `cart[1].title`) and Reactotron will start to listen to this reducer.
+
+**Tip 2:**
+When the application's page is reloaded, it will lost all Redux States (of course, if you not implemented some feature to persist this data). And during development we are frequently reloading the application and losing the states.
+
+Reactotron Desktop has a feature that we can backup the current state with its values and properties and restore them anytime.
+
+![Backuping ](./imgs/L0zn1i.png)
+Backuping current state of reducers
+
+![Restoring ](./imgs/9qNckT.png)
+Restoring snapshot
