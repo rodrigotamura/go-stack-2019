@@ -241,3 +241,21 @@ Backuping current state of reducers
 
 ![Restoring ](./imgs/9qNckT.png)
 Restoring snapshot
+
+# Immer
+
+Immer is a tool that simplify to deal with immutable objects and arrays in React.
+
+Till now we are working with immutability with states. When we are "updating" a state, by adding a new item into it for example, we are indeed creating a new array, because we are doing:
+
+```javascript
+this.setState({
+  items: [...itemsOld, itemNew]
+});
+```
+
+With Immer we have something like middle of immutability and mutability. So, we might take the actual state, making some modifications over a draft created from the previous state and finally our modifications are applyed on our main state.
+
+We could use, for example, push functions along with Immer. It will avoid to use spread operators (...) to manage states.
+
+Install Immer: `$ yarn add immer` and open [/src/store/modules/cart/reducer.js](./project/src/store/modules/cart/reducer.js) to see the implementations and further explanations of Immer.
