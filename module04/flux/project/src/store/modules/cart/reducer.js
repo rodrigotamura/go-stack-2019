@@ -1,10 +1,11 @@
 import produce from 'immer';
 
 export default function cart(state = [], action) {
-  console.log(state);
 
   switch(action.type){
     case 'ADD_TO_CART':
+      // the param 'state' in produce is the real state
+      // the param 'draft' is a copy of state
       return produce(state, draft => {
         // every changes within this draft will reflext into state
 
@@ -36,6 +37,16 @@ export default function cart(state = [], action) {
       ];
     */
     break;
+
+    case 'REMOVE_FROM_CART':
+      return produce(state, draft => {
+        const productIndex = draft.findIndex(p => p.id === action.id);
+
+        if(productIndex >= 0)
+          draft.splice(productIndex, 1);
+      });
+    break;
+
     default: // returning previous state with any changes
       return state;
   }
