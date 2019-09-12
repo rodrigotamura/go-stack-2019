@@ -341,3 +341,27 @@ We are ready now to debug our application with SAGA!
 
 ![Reactotron + Saga ](./imgs/uWC8MK.png)
 Reactotron + Saga
+
+# React Toastify
+
+In order to show messages to user, we will implement React Toastify.
+
+We can change stylization, position, animation, title and many other features!
+
+### Installation and configuration
+
+Install this package: `$ yarn add react-toastify`
+
+Go to [Main App.js](./project/src/App.js) import React Toastify and include within the global components (because React Toastify is a component as well).
+
+Now let's open our [Global Styles](./project/src/styles/global.js) and import the styles for _React Toastify_.
+
+### React Toastify usage
+
+Within a component, or saga, import:
+
+```javascript
+import toast from "react-toastify";
+```
+
+You can see a real implementation at [Cart`s Saga](./project/src/store/modules/cart/sagas.js).

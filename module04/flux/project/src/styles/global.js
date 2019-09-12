@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import background from '../assets/images/background.svg';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
