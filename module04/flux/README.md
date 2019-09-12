@@ -302,3 +302,7 @@ handleAddProduct = product => {
 ```
 
 It is a good practice to identify which reducer the actions belongs to. For example, `ADD_TO_CART` belongs to _Cart Reducer_, so, we will convert to **@cart/ADD_TO_CART**, or simply **@cart/ADD** (do not forget to change at [cart reducer](./project/src/store/modules/cart/reducer.js)).
+
+# Who will validate the states changing
+
+It is not role of component, within its functions or methods to check some changes for Redux states. This work will be made by Reducers. Please check out [Cart Reducer - @cart/UPDATE_AMOUNT](./project/src/store/modules/cart/reducer.js).
