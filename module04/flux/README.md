@@ -67,6 +67,10 @@ Noew we have a fake API using JSON Server accessing `http://localhost:3333/`.
 
 And we will user Axios for API sonsuming [/src/services/api.js](./project/src/services/api.js)
 
+### JSON-SERVER and React Native
+
+If you are in a React Native project, running your app on USB and trying to use JSON-SERVER, you need to set Axios's baseURL to yout machine's host IP and run `$ json-server --host <your-ip> server.js -p 3333`
+
 # Internationalization (i18n)
 
 Working with listing of products, we can realize that the price is not formatted.
