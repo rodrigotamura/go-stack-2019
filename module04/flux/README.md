@@ -323,7 +323,7 @@ Another example of applycation is, when user add some product into cart, before 
 
 See flow chart bellow:
 
-![Chart](./imgs/saga-diagram.png)
+![Chart](./imgs/saga-diagram1.png)
 Redux Saga workflow
 
 ### Installation
