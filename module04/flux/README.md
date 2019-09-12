@@ -321,6 +321,11 @@ Let's suppose that we want to add a product into cart, but the cart needs anothe
 
 Another example of applycation is, when user add some product into cart, before to add, Saga (middleware) will consult the API in order to see availability of stock of this product.
 
+See flow chart bellow:
+
+![Chart](./imgs/saga-diagram.png)
+Redux Saga workflow
+
 ### Installation
 
 Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/cart/cart/sagas.js](./project/src/store/modules/cart/cart/sagas.js). Open it to see the implementations and and many instructions.
@@ -328,6 +333,40 @@ Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/car
 Then, create [/src/store/modules/rootSaga.js](./project/src/store/modules/rootSaga.js) which will have the same functionallity of rootReducer, that will join all SAGAS in one file.
 
 Let's open [/src/store/index.js](./project/src/store/index.js) and implement SAGAs importings.
+
+### Some tips
+
+When we are using only Redux (without Saga) we have our actions' functions called like this:
+
+```javascript
+export function updateAmount(id, amount) {
+  return {
+    type: "@cart/UPDATE_AMOUNT",
+    id,
+    amount
+  };
+}
+```
+
+But when we start to implement SAGA in this matter, the previous function will be splitted by two and changed the names:
+
+```javascript
+export function updateAmountRequest(id, amount) {
+  return {
+    type: "@cart/UPDATE_AMOUNT_REQUEST",
+    id,
+    amount
+  };
+}
+
+export function updateAmountSuccess(id, amount) {
+  return {
+    type: "@cart/UPDATE_AMOUNT_SUCCESS",
+    id,
+    amount
+  };
+}
+```
 
 ### Redux Saga + Reactotron
 
