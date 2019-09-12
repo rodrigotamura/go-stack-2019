@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/go-stack-2019/module04/flux/project/static/js/main.c0bdc747.chunk.js",
+    "main.js.map": "/go-stack-2019/module04/flux/project/static/js/main.c0bdc747.chunk.js.map",
+    "runtime~main.js": "/go-stack-2019/module04/flux/project/static/js/runtime~main.39d8aa66.js",
+    "runtime~main.js.map": "/go-stack-2019/module04/flux/project/static/js/runtime~main.39d8aa66.js.map",
+    "static/js/2.6967b875.chunk.js": "/go-stack-2019/module04/flux/project/static/js/2.6967b875.chunk.js",
+    "static/js/2.6967b875.chunk.js.map": "/go-stack-2019/module04/flux/project/static/js/2.6967b875.chunk.js.map",
+    "index.html": "/go-stack-2019/module04/flux/project/index.html",
+    "precache-manifest.aa4b7c91cee3b80422659948b915a9ff.js": "/go-stack-2019/module04/flux/project/precache-manifest.aa4b7c91cee3b80422659948b915a9ff.js",
+    "service-worker.js": "/go-stack-2019/module04/flux/project/service-worker.js",
+    "static/media/background.svg": "/go-stack-2019/module04/flux/project/static/media/background.3c9a1ce5.svg",
+    "static/media/logo.svg": "/go-stack-2019/module04/flux/project/static/media/logo.879557c5.svg"
+  }
+}
