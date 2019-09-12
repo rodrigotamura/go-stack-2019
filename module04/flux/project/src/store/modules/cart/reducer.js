@@ -6,6 +6,14 @@ export default function cart(state = [], action) {
     case '@cart/ADD_SUCCESS':
       // the param 'state' in produce is the real state
       // the param 'draft' is a copy of state
+
+      return produce(state, draft => {
+        const { product } = action;
+
+        draft.push(product);
+      })
+
+      /* BAFORE REDUX SAGA
       return produce(state, draft => {
         // every changes within this draft will reflext into state
 
@@ -13,7 +21,7 @@ export default function cart(state = [], action) {
 
         // verifying if user is adding a product which was already added before
         // remembering that findIndex returns the index of found item
-        const productIndex = draft.findIndex(p => p.id === action.product.id);
+        /const productIndex = draft.findIndex(p => p.id === action.product.id);
         if(productIndex >= 0){
           // incrementing amount
           draft[productIndex].amount += 1;
@@ -25,6 +33,7 @@ export default function cart(state = [], action) {
           });
         }
       })
+      */
 
     /* OLD MANNER BEFORE IMMER
       /// ...state will take every products which has in cart currently
