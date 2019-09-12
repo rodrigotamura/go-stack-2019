@@ -328,7 +328,7 @@ Redux Saga workflow
 
 ### Installation
 
-Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/cart/cart/sagas.js](./project/src/store/modules/cart/cart/sagas.js). Open it to see the implementations and and many instructions.
+Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/cart/sagas.js](./project/src/store/modules/cart/sagas.js). Open it to see the implementations and and many instructions.
 
 Then, create [/src/store/modules/rootSaga.js](./project/src/store/modules/rootSaga.js) which will have the same functionallity of rootReducer, that will join all SAGAS in one file.
 
