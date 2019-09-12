@@ -259,3 +259,46 @@ With Immer we have something like middle of immutability and mutability. So, we 
 We could use, for example, push functions along with Immer. It will avoid to use spread operators (...) to manage states.
 
 Install Immer: `$ yarn add immer` and open [/src/store/modules/cart/reducer.js](./project/src/store/modules/cart/reducer.js) to see the implementations and further explanations of Immer.
+
+# Refactoring the actions (dispatches)
+
+A good practice is to separate the actions (`ADD_TO_CART`, `REMOVE_TO_CART`) from components to another files, because each action is associated with a module of our application.
+
+`ADD_TO_CART` and `REMOVE_TO_CART` are associated with [Cart Reducer](./project/src/store/modules/cart/reducer.js).
+
+So, we will create [/src/store/modules/cart/actions.js](./project/src/store/modules/cart/actions.js). Let's cut each dispatch content and paste into this new script. And finally we can simply import the functions within each component which are using them.
+
+Another way to use the created actions in [/src/store/modules/cart/actions.js](./project/src/store/modules/cart/actions.js) is importing **bindActionCreators** from Redux package:
+
+```javascript
+import { bindActionCreators } from "redux";
+import * as CartActions from "../../store/modules/cart/actions";
+```
+
+And, at the end of the component we will create:
+
+```javascript
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);
+
+// null if we had mapStateToProps
+```
+
+This function, like mapStateToProps (convert States to Properties), it will convert actions of Redux to component props.
+
+Now we can use the actions addToCart and removeFromCart directly in component props:
+
+```javascript
+handleAddProduct = product => {
+  const { addToCart } = this.props;
+
+  addToCart(product);
+};
+```
+
+It is a good practice to identify which reducer the actions belongs to. For example, `ADD_TO_CART` belongs to _Cart Reducer_, so, we will convert to **@cart/ADD_TO_CART**, or simply **@cart/ADD** (do not forget to change at [cart reducer](./project/src/store/modules/cart/reducer.js)).

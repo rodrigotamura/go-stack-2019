@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; // connecting this component with states of REdux
+import { bindActionCreators } from 'redux';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import { MdAddShoppingCart } from 'react-icons/md';
 import api from '../../services/api';
@@ -27,6 +29,8 @@ class Home extends Component {
     // every componentn which we connect with Redux, that we use Connect
     // receives a property called dispatch (this.props.dispatch), which fires an action into Redux
 
+    /* OLD MANNER BEFORE SESPARATE ACTIONS IN ANOTHER FILE
+       AND USING ACTIONS AS PROPS
     const { dispatch } = this.props;
 
     // and we implement our action:
@@ -36,7 +40,13 @@ class Home extends Component {
 
       // and content
       product,
-    })
+    });
+    dispatch(addToCart(product));
+    */
+
+    const { addToCart } = this.props;
+
+    addToCart(product);
 
   }
 
@@ -63,4 +73,7 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
