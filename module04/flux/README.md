@@ -306,3 +306,9 @@ It is a good practice to identify which reducer the actions belongs to. For exam
 # Who will validate the states changing
 
 It is not role of component, within its functions or methods to check some changes for Redux states. This work will be made by Reducers. Please check out [Cart Reducer - @cart/UPDATE_AMOUNT](./project/src/store/modules/cart/reducer.js).
+
+# Calculating amount (total, subtotal)
+
+It is not a good practice and it will decrease performance if we simply calc `value * amount` within our cart component. However we can implement this calc into `mapStateToProps()`. See this implementation at [Cart Component](./project/src/pages/Cart/index.js)
+
+**Important to note** that mapStateToProps will run anytime that we change something from Redux state.

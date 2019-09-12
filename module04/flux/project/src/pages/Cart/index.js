@@ -6,7 +6,9 @@ import * as CartActions from '../../store/modules/cart/actions';
 import { MdDelete, MdRemoveCircleOutline, MdAddCircleOutline } from 'react-icons/md';
 import { Container, ProductTable, Total } from './styles';
 
-function Cart ({ cart, removeFromCart, updateAmount }) {
+import { formatPrice } from '../../utils/format';
+
+function Cart ({ cart, removeFromCart, updateAmount, total }) {
   function increment(product) {
     updateAmount(product.id, product.amount + 1);
   }
@@ -49,7 +51,7 @@ function Cart ({ cart, removeFromCart, updateAmount }) {
                 </div>
               </td>
               <td>
-                <strong>R$258,80</strong>
+                <strong>{product.subtotal}</strong>
               </td>
               <td>
                 { /* See that we can use dispatch with inline code instead a separated method */ }
@@ -69,7 +71,7 @@ function Cart ({ cart, removeFromCart, updateAmount }) {
 
           <Total>
             <span>GENERAL TOTAL</span>
-            <strong>R$1920,28</strong>
+            <strong>{total}</strong>
           </Total>
         </footer>
       </Container>
@@ -84,7 +86,11 @@ function Cart ({ cart, removeFromCart, updateAmount }) {
   }))(Cart);
  */
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product, // putting all current fields
+    subtotal: formatPrice(product.price*product.amount) // adding new field of suntotal
+  })),
+  total: formatPrice(state.cart.reduce((total, product) => total + product.price * product.amount, 0))
 });
 
 const mapDispatchToProps = dispatch =>
