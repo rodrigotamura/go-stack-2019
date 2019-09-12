@@ -6,7 +6,7 @@ import {toast} from 'react-toastify';
  * select => responsible to reach some information in state
  */
 import api from '../../../services/api';
-import { addToCartSuccess, updateAmount } from './actions';
+import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { formatPrice } from '../../../utils/format';
 // Let's make a generator function (*), it is like:
 // async function, but generator is powerful than async/await
@@ -34,7 +34,7 @@ function* addToCart({ id }) {
 
   if(productExists){
     // only change amount
-    yield put(updateAmount(id, amount));
+    yield put(updateAmountSuccess(id, amount));
   }else{
     // we cannot simply make
     // const response = yield api.get(...), we need to import
@@ -69,6 +69,21 @@ function* addToCart({ id }) {
   // with 'all' method from redux-saga
 }
 
+function* updateAmount({id, amount}){
+  if(amount <= 0) return;
+
+  // Getting stock of this product
+  const stock = yield call(api.get, `stock/${id}`);
+  const stockAmount = stock.data.amount;
+
+  if(amount > stockAmount) {
+    toast.error('I`m sorry: amount requested out of stock');
+    return;
+  }
+
+  yield put(updateAmountSuccess(id, amount));
+}
+
 export default all([
   // subscribing listeners
 
@@ -81,5 +96,10 @@ export default all([
   takeLatest(
     '@cart/ADD_REQUEST', // which action we want to listen to
     addToCart // which function we want to fire when @cart/ADD_REQUEST is called
+  ),
+
+  takeLatest(
+    `@cart/UPDATE_AMOUNT_REQUEST`, // listening this action too
+    updateAmount
   )
 ])
