@@ -26,7 +26,14 @@ import reducer from './modules/cart/reducer';
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
-const SagaMiddleware = createSagaMiddleware();
+// Reactotron + Saga
+const sagaMonitor = process.env.NODE_ENV === 'development'
+  ? console.tron.createSagaMonitor()
+  : null;
+
+const SagaMiddleware = createSagaMiddleware({
+  sagaMonitor
+});
 
 /**
  * Integrating REactotron into with Redux

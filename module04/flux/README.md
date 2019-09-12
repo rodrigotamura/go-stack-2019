@@ -319,6 +319,8 @@ Middleware in Redux with Redux Saga might intercept the actions making a **side 
 
 Let's suppose that we want to add a product into cart, but the cart needs another information like weight of the product in order to calc the delivery service. So Redux Saga will intercept this action, making an API requesting for weight of this product, and afterwards include at the cart.
 
+Another example of applycation is, when user add some product into cart, before to add, Saga (middleware) will consult the API in order to see availability of stock of this product.
+
 ### Installation
 
 Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/cart/cart/sagas.js](./project/src/store/modules/cart/cart/sagas.js). Open it to see the implementations and and many instructions.
@@ -326,3 +328,16 @@ Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/car
 Then, create [/src/store/modules/rootSaga.js](./project/src/store/modules/rootSaga.js) which will have the same functionallity of rootReducer, that will join all SAGAS in one file.
 
 Let's open [/src/store/index.js](./project/src/store/index.js) and implement SAGAs importings.
+
+### Redux Saga + Reactotron
+
+Let's configure Reactotron for a better experience of debugging with Redux Saga.
+
+`$ yarn add reactotron-redux-saga`
+
+Open [Reactotron Config](./project/src/config/ReactotronConfig.js) to implement extra configurations. Afterwards open [/src/store/index.js](./project/src/store/index.js).
+
+We are ready now to debug our application with SAGA!
+
+![Reactotron + Saga ](./imgs/uWC8MK.png)
+Reactotron + Saga
