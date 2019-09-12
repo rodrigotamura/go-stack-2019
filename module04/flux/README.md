@@ -404,3 +404,35 @@ import toast from "react-toastify";
 ```
 
 You can see a real implementation at [Cart`s Saga](./project/src/store/modules/cart/sagas.js).
+
+# Navigation in Redux Saga
+
+Let's implement the follow scenario. When user press the button wchi add a product into cart, the user will be redirected at cart page.
+
+If we implement navigation directly in component:
+
+```javascript
+handleAddProduct = id => {
+  const { addToCartRequest } = this.props;
+
+  addToCartRequest(id);
+
+  this.props.history.push("/cart"); // this one!!!
+};
+```
+
+The user will be indeed redirected, however probably the async transaction will not be finished at the time. And it will not work if we add `awake addToRequest(id)`.
+
+We need some implementations which will redirect the user only after Saga finishes its transactions. Then we will do it within [cart`s sagas.js](./project/src/store/modules/cart/sagas.js).
+
+Firstly let's install `$ yarn add history`. This JS package controls the history API from browser which is our router from React Router Dom.
+
+Create [/src/services/history.js](./project/src/services/history.js). Open it for further implementations.
+
+Open now our [Main App.js](./project/src/App.js) and let's import /src/services/history.js, and change `BrowserRouter` for `Router`. Open this file for further implementations.
+
+Now, React Router Dom, is basically listening every actions that is happening at history. And every changes at history, the React Router Dom will listen to these changings and make the appropriate navigation.
+
+Open [cart`s sagas.js](./project/src/store/modules/cart/sagas.js) and we will implement this new feature of navigation.
+
+After this implementation, let's test with some delay in our API server (remember that we are using JSON-SERVER): `json-server server.json -p 3333 -d 2000` (delay in 2s).

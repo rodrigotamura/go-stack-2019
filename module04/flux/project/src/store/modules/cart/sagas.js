@@ -6,6 +6,7 @@ import {toast} from 'react-toastify';
  * select => responsible to reach some information in state
  */
 import api from '../../../services/api';
+import history from '../../../services/history';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { formatPrice } from '../../../utils/format';
 // Let's make a generator function (*), it is like:
@@ -61,6 +62,9 @@ function* addToCart({ id }) {
 
     // Now we will fire an action by `put` method from redux-saga
     yield put(addToCartSuccess(data));
+
+    // REDIRECTING TO CART
+    history.push('/cart');
   }
 
 
