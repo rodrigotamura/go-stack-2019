@@ -312,3 +312,17 @@ It is not role of component, within its functions or methods to check some chang
 It is not a good practice and it will decrease performance if we simply calc `value * amount` within our cart component. However we can implement this calc into `mapStateToProps()`. See this implementation at [Cart Component](./project/src/pages/Cart/index.js)
 
 **Important to note** that mapStateToProps will run anytime that we change something from Redux state.
+
+# Middlewares in Redux - Redux Saga
+
+Middleware in Redux with Redux Saga might intercept the actions making a **side effect** that could be assyncronous, an API requesting, async Storage and so on.
+
+Let's suppose that we want to add a product into cart, but the cart needs another information like weight of the product in order to calc the delivery service. So Redux Saga will intercept this action, making an API requesting for weight of this product, and afterwards include at the cart.
+
+### Installation
+
+Run `$ yarn add redux-saga` and create our first saga at [/src/store/modules/cart/cart/sagas.js](./project/src/store/modules/cart/cart/sagas.js). Open it to see the implementations and and many instructions.
+
+Then, create [/src/store/modules/rootSaga.js](./project/src/store/modules/rootSaga.js) which will have the same functionallity of rootReducer, that will join all SAGAS in one file.
+
+Let's open [/src/store/index.js](./project/src/store/index.js) and implement SAGAs importings.

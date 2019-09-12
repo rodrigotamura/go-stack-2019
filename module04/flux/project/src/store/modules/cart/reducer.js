@@ -3,7 +3,7 @@ import produce from 'immer';
 export default function cart(state = [], action) {
 
   switch(action.type){
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       // the param 'state' in produce is the real state
       // the param 'draft' is a copy of state
       return produce(state, draft => {

@@ -25,7 +25,7 @@ class Home extends Component {
     this.setState({products: data});
   }
 
-  handleAddProduct = product => {
+  handleAddProduct = id => {
     // every componentn which we connect with Redux, that we use Connect
     // receives a property called dispatch (this.props.dispatch), which fires an action into Redux
 
@@ -44,9 +44,9 @@ class Home extends Component {
     dispatch(addToCart(product));
     */
 
-    const { addToCart } = this.props;
+    const { addToCartRequest } = this.props;
 
-    addToCart(product);
+    addToCartRequest(id);
 
   }
 
@@ -60,7 +60,7 @@ class Home extends Component {
             <img src={product.image} alt={product.title} />
             <strong>{product.title}</strong>
             <span>{product.priceFormatted}</span>
-            <button type="button" onClick={() => this.handleAddProduct(product)}>
+            <button type="button" onClick={() => this.handleAddProduct(product.id)}>
               <div>
                 <MdAddShoppingCart size={16} color="#FFF" /> {amount[product.id] || 0}
               </div>
