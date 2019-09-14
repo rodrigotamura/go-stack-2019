@@ -189,6 +189,10 @@ function Header({ cart }) {
 
 So, **every component which has _connect_**, and some changing occurs with some state, this component will be rendered again with new states.
 
+What is happening is something like the follow schema:
+
+![Redux Schema ](./imgs/redux-schema.png)
+
 # Reactotron and Redux
 
 Notice: You need [Reactotron Desktop](https://github.com/infinitered/reactotron). Install it and continue...
