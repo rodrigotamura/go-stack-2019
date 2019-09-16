@@ -9,3 +9,5 @@ You are very welcome to this repository!
 - **[Module 03](./module03)**: [Introducing React](./module03/react/), [first app with ReactJS](./module03/react-first-project/) and [React Native](./module03/react_native_project/).
 
 - **[Module 04](./module04)**: [Introducing Flux and Redux](./module04/flux/) and [first app with ReactJS and Flux Architeture](./module04/flux//project).
+
+- **[Module 05](./module05)**: Understanding and working with React Hooks.
