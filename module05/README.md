@@ -105,3 +105,55 @@ About useCallback():
 - The second parameter will be the variables which we need to inject into the function.
 
 👉 **IMPORTANT: We use `useCallBack()` ONLY we need to handle with states variables.**
+
+# Implementing React Hooks in a real app
+
+Please, you can visit this project [here](./project).
+
+Final result of mine:
+
+![Project Sample Final ](https://raw.githubusercontent.com/rodrigotamura/go-stack-2019/master/module04/flux/imgs/rockeshoes-demo.gif)
+
+### Asynchronous functions with async/await
+
+We CAN NOT use async/await directly on `useEffect()`:
+
+👎 WRONG MANNER:
+
+```javascript
+async useEffect(() => {
+  // ...
+})
+```
+
+👍 CORRECT MANNER:
+
+```javascript
+useEffect(() => {
+  async function functionName() {
+    await ...
+  }
+
+  functionName();
+})
+```
+
+### Using React Hooks with Redux
+
+At [Header Component](./project/src/components/Header/index.js) you may see the follow code snippet:
+
+```javascript
+export default connect(state => ({
+  cartSize: state.cart.length,
+}))(Header);
+```
+
+We could simplify it A LOT!
+
+Please, check differences between:
+
+- Header Component: [older version (without Hooks)](./project/src/components/Header/index_older.js) and [latest version (with Hooks)](./project/src/components/Header/index.js);
+- Home Component: [older version (without Hooks)](./project/src/pages/Home/index_older.js) and [latest version (with Hooks)](./project/src/pages/Home/index.js);
+- Cart Component: [older version (without Hooks)](./project/src/pages/Cart/index_older.js) and [latest version (with Hooks)](./project/src/pages/Cart/index.js);
+
+Then, every time we need access Redux States, we use `useSelector()`; and for Redux Dispatch, we use `useDispatch()`;
