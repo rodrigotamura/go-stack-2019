@@ -61,4 +61,41 @@ About useMemo() usage:
 - First parameter: function which returns the desired value into `techSize`;
 - Second parameter: which state variables are listen to. When one of these listed variables is changed, the function on first parameter will be executed.
 
+You can see implementations and some important explanations at [/src/App_useMemo.js](./src/App_useMemo.js).
+
+# Hook useCallback
+
+Similar to `useMemo()`, instead return primitive data type (bool, string, number, and so on.), `useCallback()` returns a function.
+
+Look at function `handleAdd()`, within function `App()`. Every time we change **ANY STATE VARIABLE** (e.g. `newTech` (by pressing a key) or add/remove a value to `tech`), `handleAdd()` is rendered again (from ZERO!). And this is not a good manner for our app's performance.
+
+So, `useCallback()` will solve this problem for us! 😄
+
 You can see implementations and some important explanations at [/src/App.js](./src/App.js).
+
+Let's transform:
+
+```javascript
+function handleAdd() {
+  setTech([...tech, newTech]);
+  setNewTech('');
+}
+```
+
+To:
+
+```javascript
+const handleAdd = useCallback(() => {
+  setTech([...tech, newTech]);
+  setNewTech('');
+}, [newTech, tech]);
+```
+
+Now, `handleAdd` will be allocated again in memory only when `newTech` or `tech` are changed.
+
+About useCallback():
+
+- The first parameter will be the function itself, which is executed by `handleAdd()`;
+- The second parameter will be the variables which we need to inject into the function.
+
+👉 **IMPORTANT: We use `useCallBack()` ONLY we need to handle with states variables.**
