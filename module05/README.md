@@ -44,7 +44,7 @@ You can see implementations and some important explanations at [/src/App_useEffe
 
 We conclude that React Hooks useEffect() replaces the traditional methods of life cycle from component reducing verbosity.
 
-# Hook useMemo
+# Hook useMemo()
 
 In our example we are developing, supose that we want to display the number of techs added by user:
 
@@ -69,7 +69,7 @@ About useMemo() usage:
 
 You can see implementations and some important explanations at [/src/App_useMemo.js](./src/App_useMemo.js).
 
-# Hook useCallback
+# Hook useCallback()
 
 Similar to `useMemo()`, instead return primitive data type (bool, string, number, and so on.), `useCallback()` returns a function.
 
