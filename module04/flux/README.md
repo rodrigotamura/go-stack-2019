@@ -23,6 +23,10 @@ In order to implement Flux Architeture, we will develop a sample of an e-commerc
 
 The project can be accessed in [here](./project/), however in this README we going to note the details the implementations.
 
+Final result of mine:
+
+![Project Sample Final ](./imgs/rockeshoes-demo.gif)
+
 ### Don't you remember how to create a new ReactJS project?
 
 `$ yarn create react-app project`
