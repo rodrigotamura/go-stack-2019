@@ -1,26 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  // in older version we should transform this funtion into a class
-  // but now we can do it using consts.
-
-  /**
-   * useState() returns a list of array, that's why we are working with desustructuring
-   * - the first array return the state itself, which is our list of technologies
-   * - the secound is the function which update the content of the state  (tech)
-   * - every information we store in useState([here]) will be the initial values of state
-   */
-  const [tech, setTech] = useState(['ReactJS', 'React Native']);
+  const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  /**
-   * Before, we had this.setState in order to update the information in state
-   * Now, we might use the specific function of the specific state.
-   */
   function handleAdd() {
     setTech([...tech, newTech]);
     setNewTech(''); // cleaning input
   }
+  /**
+   * Follow next example, the setted function will be executed only whe component is loaded
+   * like componentDidMount
+   * It's only to set empty array at the second parameter
+   */
+
+  useEffect(() => {
+    const storageTech = localStorage.getItem('tech');
+
+    if (storageTech) {
+      setTech(JSON.parse(storageTech));
+    }
+    /*
+    // removing, because we don't need it now.
+    return () => {
+      document.removeEventListener();
+    }
+    /*
+  }, []);
+
+  /**
+   * useEffect(function, when_exec_function)
+   * First parameter is the function
+   * Second parameter is when it will be executed.
+   * It is an array which will put specific variables that will be monitored.
+   * In this example, if 'tech' variable is changed it will execute that function
+   * Like componentDidUpdate
+   * (it will also executed when component is loaded)
+   */
+  useEffect(() => {
+    localStorage.setItem('tech', JSON.stringify(tech));
+  }, [tech]);
+  
+  /**
+   * For componentwillAmount...
+   * see return function within the first useEffect()
+   * which will return a listener function
+   */
+
+
   return (
     <>
       <ul>
