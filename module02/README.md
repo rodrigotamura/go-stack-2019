@@ -577,3 +577,18 @@ Now we can access these variable calling by `_process.env.VARIABLE_IN_DOTENV_`.
 We need to import it in [/src/config/database.js](./src/config/database.js).
 
 A good practice is to create [.env.example](./.env.example) taking off every secret configuration in order to the next developer that clone our application will set each variable.
+
+# CORS
+
+It allows this API to be accessed by other apps (e.g. front-ends).
+
+`yarn add cors`
+
+We can configure which addresses could access the API.
+
+```javascript
+this.server.use(cors()); // allows any apps to access this API
+this.server.use(cors({ origin: 'https://somewhere.com' })); // allow only apps which are in this host
+```
+
+Please, check out [app.js](./src/app.js) for further details.

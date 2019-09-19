@@ -1,5 +1,6 @@
 import * as Yup from 'yup'; // importing validator
 import User from '../models/User';
+import File from '../models/File';
 
 class UserController {
   async store(req, res) {
@@ -82,13 +83,24 @@ class UserController {
     }
 
     // updating user
-    const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
+
+    // getting user infos and updated avatar
+    const { id, name, avatar } = await User.findByPk(req.userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     return res.json({
       id,
       name,
       email,
-      provider,
+      avatar,
     });
   }
 }
