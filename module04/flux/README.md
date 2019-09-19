@@ -438,6 +438,7 @@ The user will be indeed redirected, however probably the async transaction will 
 We need some implementations which will redirect the user only after Saga finishes its transactions. Then we will do it within [cart`s sagas.js](./project/src/store/modules/cart/sagas.js).
 
 Firstly let's install `$ yarn add history`. This JS package controls the history API from browser which is our router from React Router Dom.
+**With this lib, it allows to navigate from anywhere, including REDUX**
 
 Create [/src/services/history.js](./project/src/services/history.js). Open it for further implementations.
 
