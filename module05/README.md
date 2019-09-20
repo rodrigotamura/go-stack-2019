@@ -140,7 +140,7 @@ useEffect(() => {
 
 ### Using React Hooks with Redux
 
-At [Header Component](./project/src/components/Header/index.js) you may see the follow code snippet:
+At [Header Component](./project/src/components/Header/index_older.js) you may see the follow code snippet:
 
 ```javascript
 export default connect(state => ({
