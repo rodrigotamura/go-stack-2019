@@ -1,3 +1,9 @@
+# About this project
+
+Welcome! This is GoBarber API, made with 💟 with Express Framework (Node.js).
+
+Please, visit [**GoBarber - Provider App**](https://github.com/rodrigotamura/go-barber-web) made with ReactJS which consumes this API.
+
 # Prerequisites for this application
 
 The implementation of this application we used a Docker container with Postgres installed.
