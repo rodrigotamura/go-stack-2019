@@ -354,7 +354,7 @@ It is not role of component, within its functions or methods to check some chang
 
 # Calculating amount (total, subtotal)
 
-It is not a good practice and it will decrease performance if we simply calc `value * amount` within our cart component. However we can implement this calc into `mapStateToProps()`. See this implementation at [Cart Component](./project/src/pages/Cart/index.js)
+It is not a good practice and it will decrease performance if we simply calculate `value * amount` within our cart component. However we can implement this calculation into `mapStateToProps()`. See this implementation at [Cart Component](./project/src/pages/Cart/index.js)
 
 **Important to note** that mapStateToProps will run anytime that we change something from Redux state.
 
@@ -362,7 +362,7 @@ It is not a good practice and it will decrease performance if we simply calc `va
 
 Middleware in Redux with Redux Saga might intercept the actions making a **side effect** that could be assyncronous, an API requesting, async Storage and so on.
 
-Let's suppose that we want to add a product into cart, but the cart needs another information like weight of the product in order to calc the delivery service. So Redux Saga will intercept this action, making an API requesting for weight of this product, and afterwards include at the cart.
+Let's suppose that we want to add a product into cart, but the cart needs another information like weight of the product in order to calculate the delivery service. So Redux Saga will intercept this action, making an API requesting for weight of this product, and afterwards include at the cart.
 
 Another example of applycation is, when user add some product into cart, before to add, Saga (middleware) will consult the API in order to see availability of stock of this product.
 
