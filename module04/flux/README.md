@@ -1,3 +1,36 @@
+# About this project
+
+You are very welcome to check out this project! In this approach I want to present you about Flux architecture using Redux on ReactJS projects.
+
+- [Introduction](#introduction)
+  - [Principles to use Redux](#principles-to-use-redux)
+- [About the project](#about-the-project)
+  - [Don't you remember how to create a new ReactJS project?](#don-t-you-remember-how-to-create-a-new-reactjs-project-)
+- [Special details about routes](#special-details-about-routes)
+- [Polished](#polished)
+- [API with JSON Server](#api-with-json-server)
+  - [JSON-SERVER and React Native](#json-server-and-react-native)
+- [Internationalization (i18n)](#internationalization--i18n-)
+- [Configuring Redux](#configuring-redux)
+- [Using reducer - Adding produts into cart](#using-reducer---adding-produts-into-cart)
+  - [Accessing states from Redux](#accessing-states-from-redux)
+- [Reactotron and Redux](#reactotron-and-redux)
+  - [Installing Reactottron in our project](#installing-reactottron-in-our-project)
+  - [Integrating Reactotron with Redux](#integrating-reactotron-with-redux)
+  - [Reactotron with Redux tips](#reactotron-with-redux-tips)
+- [Immer](#immer)
+- [Refactoring the actions (dispatches)](#refactoring-the-actions--dispatches-)
+- [Who will validate the states changing](#who-will-validate-the-states-changing)
+- [Calculating amount (total, subtotal)](#calculating-amount--total--subtotal-)
+- [Middlewares in Redux - Redux Saga](#middlewares-in-redux---redux-saga)
+  - [Installation](#installation)
+  - [Some tips](#some-tips)
+  - [Redux Saga + Reactotron](#redux-saga---reactotron)
+- [React Toastify](#react-toastify)
+  - [Installation and configuration](#installation-and-configuration)
+  - [React Toastify usage](#react-toastify-usage)
+- [Navigation in Redux Saga](#navigation-in-redux-saga)
+
 # Introduction
 
 You can see more details [here](./1562597351733.pdf). Bellow we going to note some details in a nutshell.
