@@ -1,8 +1,50 @@
 # About this project
 
-Welcome! This is GoBarber API, made with 💟 with Express Framework (Node.js).
+Welcome! This is GoBarber API, made with 💟 using Express Framework (Node.js).
 
 Please, visit [**GoBarber - Provider App**](https://github.com/rodrigotamura/go-barber-web) made with ReactJS which consumes this API.
+
+- [Prerequisites for this application](#prerequisites-for-this-application)
+- [Sucrase](#sucrase)
+  - [Why sucrase?](#why-sucrase-)
+  - [Installing Sucrase](#installing-sucrase)
+  - [Using Sucrase](#using-sucrase)
+  - [Sucrase + Nodemon](#sucrase---nodemon)
+- [Sequelize](#sequelize)
+  - [About ORM](#about-orm)
+  - [Migrations](#migrations)
+  - [Seeds](#seeds)
+  - [Configuring Sequelize in our project](#configuring-sequelize-in-our-project)
+  - [Creating our first migration](#creating-our-first-migration)
+  - [Creating our first Model](#creating-our-first-model)
+  - [Creating connection between app and DB and linking with Models](#creating-connection-between-app-and-db-and-linking-with-models)
+  - [Making relationship between Models](#making-relationship-between-models)
+- [NoSQL](#nosql)
+- [MVC Architecture - Important approaches](#mvc-architecture---important-approaches)
+  - [Controller](#controller)
+- [Code standardize](#code-standardize)
+  - [Prettier](#prettier)
+    - [Using linter and prettier in all files inside one folder](#using-linter-and-prettier-in-all-files-inside-one-folder)
+  - [Standizing IDE's for the team](#standizing-ide-s-for-the-team)
+- [Generating hash of passwords](#generating-hash-of-passwords)
+- [JWT - Json Web Token](#jwt---json-web-token)
+  - [Implementing JWT](#implementing-jwt)
+  - [Middleware of authentication](#middleware-of-authentication)
+- [Validation](#validation)
+  - [Validating Date](#validating-date)
+    - [Locale on datetime with Date-FNS](#locale-on-datetime-with-date-fns)
+- [File upload](#file-upload)
+- [Pagination](#pagination)
+- [Sending e-mails](#sending-e-mails)
+  - [Sending e-mail](#sending-e-mail)
+  - [Configuring template HTML for e-mail message](#configuring-template-html-for-e-mail-message)
+- [Configuring queues with Redis](#configuring-queues-with-redis)
+  - [Configuring Redis](#configuring-redis)
+  - [Configuring BeeQueue](#configuring-beequeue)
+  - [Monitoring fails in queue](#monitoring-fails-in-queue)
+- [Error handling](#error-handling)
+- [Configuring environmet variables](#configuring-environmet-variables)
+- [CORS](#cors)
 
 # Prerequisites for this application
 
