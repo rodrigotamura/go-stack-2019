@@ -462,6 +462,16 @@ Afterwards, we will go to our routes, and we will import our multer configs and 
 
 Let's test it with Insomnia (or another alternative) and, instead use JSON in body type, we will use _Multipart_. You might see in /tmp/uploads your uploaded file.
 
+**It is very important to note ** that in order to access an uploaded file by any client, we must to create a reference to access it. For example, I want to open the image /tmp/uploads/photo.jpg accessing http://api-url.com/image/photo.jpg. To make it, you need to add the following line into your /src/app.js middleware:
+
+```javascript
+import path from 'path';
+this.server.use(
+  '/files',
+  express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+);
+```
+
 # Pagination
 
 By good practices, we use **querystring** to set the number of page (http://localhost:3333/appointments?__page=2__). See how to implement it at [here](./src/app/controllers/AppointmentController.js).
