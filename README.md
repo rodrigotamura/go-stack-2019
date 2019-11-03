@@ -11,3 +11,5 @@ You are very welcome to this repository!
 - **[Module 04](./module04)**: [Introducing Flux and Redux](./module04/flux/) and [first app with ReactJS and Flux Architeture](./module04/flux//project).
 
 - **[Module 05](./module05)**: Understanding and working with React Hooks, and finally applying it in a [real app](./module05/project/).
+
+- **[Module 06](./module06)**: Testing applications with JEST.
