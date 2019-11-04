@@ -13,7 +13,7 @@ It tests a pure and minimum function, which does not perform side effects such a
 It is the main est for back-end. It tests complete functionalities such as routes till the controller return.
 (mocks = fakes functionalities)
 
-### E3E testings
+### E2E testing
 
 Testing of interfaces which simulates the user (generally for front-end). It tests the flow of application.
 
