@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://rodrigotamura.github.io/go-stack-2019/module04/flux/project/",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "gh-pages": "^2.1.1",
     "immer": "^4.0.0",
     "polished": "^3.4.1",
